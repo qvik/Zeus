@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  zeus_db:
+    container_name: zeus-db
+    image: postgres  
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    env_file:
+      - dbcredentials.env
+
+  #zeus_be:
+  #  container_name: zeus_be
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  environment:
+  #    - POSTGRES_URL=postgres://zeus-db:zeus-db@0.0.0.0:5432/zeus
+  #  restart: on-failure
+  #  ports:
+  #    - 8080:8080
+  #  expose:
+  #    - 8080       
+
+networks:
+  default:
+    driver: bridge

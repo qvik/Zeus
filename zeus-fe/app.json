@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "zeus-fe",
+    "slug": "zeus-fe",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "zeus-fe"
+}
