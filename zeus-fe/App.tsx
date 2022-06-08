@@ -3,6 +3,9 @@ import React, { useState } from 'react'
 import { Button, StyleSheet, Text, View, TextInput, Dimensions } from 'react-native'
 import MapView from 'react-native-maps'
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
+import axios from 'axios'
+// @ts-ignore
+import { GOOGLE_API_KEY } from '@env'
 
 export default function App() {
   const [inputValue, setInputValue] = useState<string>('')
@@ -21,6 +24,8 @@ export default function App() {
   // Todo: this function should do the api call to Google and do the calculation for the best direction
   const handleSubmit = async () => {
     try {
+      const response = await axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${GOOGLE_API_KEY}`)
+      console.log(response)
     } catch (error) {
       console.log(error)
     }
