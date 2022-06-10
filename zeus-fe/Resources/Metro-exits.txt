@@ -1,0 +1,108 @@
+
+Exit: Tunnelgatan 5A
+	WGS84
+    59°20'11.7"N 18°3'46.2"E
+    WGS84 DDM
+    59°20.194'N 18°3.770'E
+    WGS84 decimal (lat, lon)
+    59.336571, 18.062832
+    RT90 (nord, öst)
+    6581707, 1628477
+    SWEREF99 TM (nord, öst)
+    6581537, 674207
+
+Exit: Olof palmes gata 7T
+    WGS84
+    59°20'10.8"N 18°3'44.8"E
+    WGS84 DDM
+    59°20.180'N 18°3.747'E
+    WGS84 decimal (lat, lon)
+    59.33633, 18.062457
+    RT90 (nord, öst)
+    6581680, 1628456
+    SWEREF99 TM (nord, öst)
+    6581509, 674187
+
+Exit: Kungsgatan 36 
+    WGS84
+    59°20'8.7"N 18°3'50.7"E
+    WGS84 DDM
+    59°20.144'N 18°3.845'E
+    WGS84 decimal (lat, lon)
+    59.335739, 18.064088
+    RT90 (nord, öst)
+    6581617, 1628551
+    SWEREF99 TM (nord, öst)
+    6581448, 674282
+
+Exit: Kungsgatan 40
+    WGS84
+    59°20'7.8"N 18°3'46.7"E
+    WGS84 DDM
+    59°20.129'N 18°3.778'E
+    WGS84 decimal (lat, lon)
+    59.335488, 18.062961
+    RT90 (nord, öst)
+    6581587, 1628488
+    SWEREF99 TM (nord, öst)
+    6581417, 674220
+
+Exit: Kungsgatan 39
+    WGS84
+    59°20'8.1"N 18°3'51.7"E
+    WGS84 DDM
+    59°20.135'N 18°3.861'E
+    WGS84 decimal (lat, lon)
+    59.335581, 18.064356
+    RT90 (nord, öst)
+    6581600, 1628567
+    SWEREF99 TM (nord, öst)
+    6581431, 674298
+
+Exit: Kungsgatan 41
+    WGS84
+    59°20'7.1"N 18°3'47.3"E
+    WGS84 DDM
+    59°20.118'N 18°3.789'E
+    WGS84 decimal (lat, lon)
+    59.335307, 18.063143
+    RT90 (nord, öst)
+    6581567, 1628499
+    SWEREF99 TM (nord, öst)
+    6581397, 674231
+
+Exit: Malmskillnadsgatan 27A
+    WGS84
+    59°20'4.3"N 18°3'55.7"E
+    WGS84 DDM
+    59°20.072'N 18°3.929'E
+    WGS84 decimal (lat, lon)
+    59.334536, 18.065482
+    RT90 (nord, öst)
+    6581486, 1628635
+    SWEREF99 TM (nord, öst)
+    6581317, 674368
+
+Exit: Sveavägen 16
+    WGS84
+    59°20'3.8"N 18°3'53.6"E
+    WGS84 DDM
+    59°20.064'N 18°3.894'E
+    WGS84 decimal (lat, lon)
+    59.334393, 18.064892
+    RT90 (nord, öst)
+    6581469, 1628602
+    SWEREF99 TM (nord, öst)
+    6581300, 674335
+
+Exit: Sveavägen 17A
+    WGS84
+    59°20'3.9"N 18°3'49.5"E
+    WGS84 DDM
+    59°20.066'N 18°3.825'E
+    WGS84 decimal (lat, lon)
+    59.334426, 18.063755
+    RT90 (nord, öst)
+    6581470, 1628538
+    SWEREF99 TM (nord, öst)
+    6581301, 674270
