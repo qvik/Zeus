@@ -5,7 +5,7 @@ export const stations = [
     imgSrc: '',
   },
   {
-    id: 0,
+    id: 1,
     name: 'Rådmansgatan',
     imgSrc: '',
   },
@@ -118,4 +118,54 @@ export const metroExits = [
     longitude: '18.063755',
     imgSrc: ['http://img1', 'http://img2', 'http://img3'],
   },
+
+  {
+    id: 10,
+    name: 'Rehnsgatan',
+    stationId: 1,
+    latitude: '59.342822',
+    longitude: '18.059576',
+    imgSrc: ['http://img1', 'http://img2', 'http://img3'],
+  },
+  {
+    id: 11,
+    name: 'Sveavägen 98T',
+    stationId: 1,
+    latitude: '59.3423633',
+    longitude: '18.0552446',
+    imgSrc: ['http://img1', 'http://img2', 'http://img3'],
+  },
+  {
+    id: 12,
+    name: 'Sveavägen 67B',
+    stationId: 1,
+    latitude: '59.3421262',
+    longitude: '18.0546131',
+    imgSrc: ['http://img1', 'http://img2', 'http://img3'],
+  },
+  {
+    id: 13,
+    name: 'Sveavägen 55',
+    stationId: 1,
+    latitude: '59.3404744',
+    longitude: '18.056115',
+    imgSrc: ['http://img1', 'http://img2', 'http://img3'],
+  },
+  {
+    id: 14,
+    name: 'Rådmansgatan södra',
+    stationId: 1,
+    latitude: '59.340275',
+    longitude: '18.058766',
+    imgSrc: ['http://img1', 'http://img2', 'http://img3'],
+  },
+  {
+    id: 15,
+    name: 'Sveavägen 80A',
+    stationId: 1,
+    latitude: '59.3403637',
+    longitude: '18.0569798',
+    imgSrc: ['http://img1', 'http://img2', 'http://img3'],
+  },
+
 ]
