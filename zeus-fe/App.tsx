@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react'
 import { Button, StyleSheet, Text, View, TextInput, Alert, Pressable} from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import MapView from 'react-native-maps'
-import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
+import * as Font from 'expo-font'
+import { useFonts } from '@expo-google-fonts/poppins'
+import AppLoading  from 'expo-app-loading'
 import { avoids, stations, metroExits, travelModes } from './Utils/MetroData'
 import MapViewDirections from 'react-native-maps-directions'
 import { StationPicker } from './Components/StationPicker'
@@ -13,8 +15,12 @@ import { DestinationInput } from './Components/DestinationInput'
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
 import { initialRegion } from './Constants'
 
+const customFonts = {
+  'poppins_700Bold': require('./assets/fonts/Poppins_700Bold.ttf')
+}
 export default function App() {
-  useFonts({ Poppins_700Bold })
+  useFonts(customFonts)
+
   const [selectedDestination, setSelectedDestination] = useState<string>('')
   const [avoid] = useState(avoids[0].name + '|' + avoids[1].name + '|' + avoids[2].name)
   const [preferredExit, setPreferredExit] = useState('')
@@ -94,7 +100,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Metro Exits</Text>
+      <Text style={styles.titleText}>Metro Exits Finder</Text>
       
       <StationPicker selectedStation= {selectedStation} 
       stationsList= {stationsList} 
@@ -112,7 +118,7 @@ export default function App() {
       {
         preferredExit ? 
         <>
-          <View>
+          <View >
             <Text style={{marginTop: 6, height: 30}}>Take the exit: {preferredExit}</Text>
           </View>
         </>
@@ -137,15 +143,16 @@ const styles = StyleSheet.create({
     height: '75%',
   },
   titleText: {
-    fontFamily: 'Poppins_700Bold',
+    fontFamily: 'poppins_700Bold',
     fontWeight: '700',
     fontSize: 30,
     marginBottom: 0,
+    
   },
   finderText: {
-    fontFamily: 'Poppins_700Bold',
+    
     fontWeight: '700',
-    fontSize: 40,
+    fontSize: 30,
     marginTop: 0,
     paddingTop: 0
   },

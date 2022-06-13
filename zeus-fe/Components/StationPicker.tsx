@@ -29,7 +29,6 @@ export const StationPicker = (props) => {
 }
 
 const styles = StyleSheet.create({
-
     picker: {
       height: 20, 
       width: '60%',

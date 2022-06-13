@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     buttonText: {
-      fontFamily: 'Poppins_700Bold',
+      
       fontWeight: '700',
       fontSize: 12,
       color: 'blue',
