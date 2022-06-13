@@ -1,10 +1,9 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View, TextInput, Alert, Pressable} from 'react-native'
-import { Picker } from '@react-native-picker/picker'
+import React from 'react'
+import { StyleSheet, Text, View, TextInput, Alert, Pressable } from 'react-native'
 
-export const DestinationInput = (props) => {
-    return (
-        <>
+export const DestinationInput = (props: any) => {
+  return (
+    <>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -15,35 +14,34 @@ export const DestinationInput = (props) => {
         <Pressable style={styles.button} onPress={props.handleSubmit}>
           <Text style={styles.buttonText}> Submit </Text>
         </Pressable>
-
-      </View>        
-        </>
-    )
+      </View>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
-    inputContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-    },
-    input: {
-      marginBottom:10,
-      marginTop: 13,
-      marginRight: '8px',
-      width: '241px',
-      height: '41px',
-    },
-    button: {
-      marginBottom:10, 
-      marginTop: 15,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    buttonText: {
-      fontFamily: 'Poppins_700Bold',
-      fontWeight: '700',
-      fontSize: 12,
-      color: 'blue',
-      borderRightWidth: 3
-    },
-  })
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  input: {
+    marginBottom: 10,
+    marginTop: 13,
+    marginRight: '8px',
+    width: '241px',
+    height: '41px',
+  },
+  button: {
+    marginBottom: 10,
+    marginTop: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontFamily: 'Poppins_700Bold',
+    fontWeight: '700',
+    fontSize: 12,
+    color: 'blue',
+    borderRightWidth: 3,
+  },
+})
