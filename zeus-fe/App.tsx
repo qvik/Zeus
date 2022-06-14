@@ -80,7 +80,7 @@ export default function App() {
       {
         preferredExit ? 
         <>
-          <ScrollView style={{height: 80, position: 'absolute', marginBottom: 10, bottom:50, backgroundColor: 'white', width: '80%'}}>
+          <ScrollView style={{height: 80, position: 'absolute', marginBottom: 10, bottom:40, backgroundColor: 'white', width: '80%'}}>
             {
               directions?.map((step, index) => {
                 let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
@@ -120,16 +120,14 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '82%',
+    height: '83%',
   },
   titleText: {
-    fontFamily: 'Poppins_700Bold',
     fontWeight: '700',
     fontSize: 30,
     marginBottom: 0,
   },
   finderText: {
-    fontFamily: 'Poppins_700Bold',
     fontWeight: '700',
     fontSize: 40,
     marginTop: 0,
