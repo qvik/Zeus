@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
 import * as React from 'react'
 import { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import MapView from 'react-native-maps'
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
 import { avoids, metroExits, travelModes, initialRegion } from './Constants'
 import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from './Components/DestinationInput'
+import { ListItem } from 'react-native-elements/dist/list/ListItem'
+import HTMLView from 'react-native-htmlview'
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
 
@@ -17,7 +19,7 @@ export default function App() {
   const [preferredExit, setPreferredExit] = useState('')
   const [destination, setDestination] = useState({ latitude: 0, longitude: 0 })
   const [startLocation, setStartLocation] = useState({ latitude: 0, longitude: 0 })
-  const [directions, setDirections] = useState('')
+  const [directions, setDirections] = useState<any[]>()
   const [error, setError] = useState('')
 
   const handleSubmit = async () => {
@@ -75,15 +77,33 @@ export default function App() {
       <MapView style={styles.map} initialRegion={initialRegion}>
         <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
       </MapView>
-      {preferredExit ? (
+      {
+        preferredExit ? 
         <>
-          <View>
-            <Text style={{ marginTop: 6, height: 30 }}>Take the exit: {preferredExit}</Text>
+          <ScrollView style={{height: 80, position: 'absolute', marginBottom: 10, bottom:50, backgroundColor: 'white', width: '80%'}}>
+            {
+              directions?.map((step, index) => {
+                let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
+                replacedHtmlInstructions = replacedHtmlInstructions.replace('</b>', '')
+                return (
+                  <>
+                    <Text style={{marginBottom:1}} key={index}>Step: {index}: Distance: {step.distance.text},</Text>
+                    <HTMLView key={index +1}
+                      value={replacedHtmlInstructions}
+                    />
+                    <ListItem key={index +2} bottomDivider style={{marginTop: 0, marginBottom: 10, paddingTop: 0}}></ListItem>
+                  </>
+                )
+              })
+            }
+          </ScrollView>
+
+          <View >
+            <Text style={{marginTop: 6, height: 30}}>Take the exit: {preferredExit}</Text>
           </View>
         </>
-      ) : (
-        <></>
-      )}
+        : <></>
+      }
       <StatusBar style="auto" />
     </View>
   )
@@ -100,7 +120,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '75%',
+    height: '82%',
   },
   titleText: {
     fontFamily: 'Poppins_700Bold',
