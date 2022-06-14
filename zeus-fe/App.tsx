@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { Button, StyleSheet, Text, View, TextInput, Alert, Pressable} from 'react-native'
+import { Button, StyleSheet, Text, View, TextInput, Alert, Pressable, ScrollView} from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import MapView from 'react-native-maps'
 import * as Font from 'expo-font'
@@ -11,9 +11,12 @@ import { avoids, stations, metroExits, travelModes } from './Utils/MetroData'
 import MapViewDirections from 'react-native-maps-directions'
 import { StationPicker } from './Components/StationPicker'
 import { DestinationInput } from './Components/DestinationInput'
+import { ListItem } from 'react-native-elements/dist/list/ListItem'
+import HTMLView from 'react-native-htmlview'
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
 import { initialRegion } from './Constants'
+import * as AppAuth from 'expo-app-auth'
 
 const customFonts = {
   'poppins_700Bold': require('./assets/fonts/Poppins_700Bold.ttf')
@@ -26,7 +29,7 @@ export default function App() {
   const [preferredExit, setPreferredExit] = useState('')
   const [destination, setDestination] = useState({ latitude: 0, longitude: 0 })
   const [startLocation, setStartLocation] = useState({ latitude: 0, longitude: 0 })
-  const [directions, setDirections] = useState('')
+  const [directions, setDirections] = useState<any[]>()
   const [ stationsList, setStationsList ] = useState(stations)
   const [ metroExitsList, setMetroExitisList ] = useState(metroExits)
   const [ selectedStation, setSelectedStation ] = useState<string>('')
@@ -41,7 +44,7 @@ export default function App() {
   },[selectedStation])
 
   useEffect(() => {
-    //console.log(`directions: is: ${JSON.stringify(directions)}`)
+    console.log(`directions: is: ${JSON.stringify(directions)}`)
   },[directions])
 
   const handleSelectedStation = (pickedStation: string) => {
@@ -115,9 +118,29 @@ export default function App() {
       <MapView style={styles.map} initialRegion={initialRegion}>
         <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
       </MapView>
+      
+
       {
         preferredExit ? 
         <>
+          <ScrollView style={{height: 80, position: 'absolute', marginBottom: 10, bottom:50, backgroundColor: 'white', width: '80%'}}>
+            {
+              directions?.map((step, index) => {
+                let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
+                replacedHtmlInstructions = replacedHtmlInstructions.replace('</b>', '')
+                return (
+                  <>
+                    <Text style={{marginBottom:1}} key={index}>Step: {index}: Distance: {step.distance.text},</Text>
+                    <HTMLView style={{paddingBottom: 0 }} key={index +1}
+                      value={replacedHtmlInstructions}
+                    />
+                    <ListItem key={index +2} bottomDivider style={{marginTop: 0, marginBottom: 10, paddingTop: 0}}></ListItem>
+                  </>
+                )
+              })
+            }
+          </ScrollView>
+
           <View >
             <Text style={{marginTop: 6, height: 30}}>Take the exit: {preferredExit}</Text>
           </View>
@@ -128,6 +151,8 @@ export default function App() {
     </View>
   )
 }
+
+
 
 // Todo: Add correct CSS from figma
 const styles = StyleSheet.create({
@@ -140,17 +165,15 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '75%',
+    height: '70%',
   },
   titleText: {
-    fontFamily: 'poppins_700Bold',
     fontWeight: '700',
     fontSize: 30,
     marginBottom: 0,
     
   },
   finderText: {
-    
     fontWeight: '700',
     fontSize: 30,
     marginTop: 0,

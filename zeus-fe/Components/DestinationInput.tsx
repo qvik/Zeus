@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
       marginTop: 15,
       alignItems: 'center',
       justifyContent: 'center',
+      width: 60,  
+      height: 60,                                       
+
     },
     buttonText: {
       
