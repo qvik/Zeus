@@ -80,19 +80,21 @@ export default function App() {
       {
         preferredExit ? 
         <>
-          <ScrollView style={{height: 80, position: 'absolute', marginBottom: 10, bottom:40, backgroundColor: 'white', width: '80%'}}>
+          <ScrollView style={styles.directionsScrollView}>
+            <Text style={styles.directionsText}>Directions: </Text>
+            <Text style={styles.atExitText}>At exit: {preferredExit} </Text>
             {
               directions?.map((step, index) => {
                 let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
                 replacedHtmlInstructions = replacedHtmlInstructions.replace('</b>', '')
                 return (
-                  <>
-                    <Text style={{marginBottom:1}} key={index}>Step: {index}: Distance: {step.distance.text},</Text>
-                    <HTMLView key={index +1}
-                      value={replacedHtmlInstructions}
-                    />
-                    <ListItem key={index +2} bottomDivider style={{marginTop: 0, marginBottom: 10, paddingTop: 0}}></ListItem>
-                  </>
+                  <View key={index}>
+                    <View style={{marginLeft: 40}}>
+                      <Text style={{marginBottom:1}} >Step: {index} - Distance: {step.distance.text},</Text>
+                      <HTMLView value={replacedHtmlInstructions} />
+                    </View>
+                    <ListItem bottomDivider style={styles.bottomDividerListItem}></ListItem>
+                  </View>
                 )
               })
             }
@@ -133,4 +135,29 @@ const styles = StyleSheet.create({
     marginTop: 0,
     paddingTop: 0,
   },
+  directionsScrollView: {
+    height: 200, 
+    borderWidth: 3,
+    borderColor: 'blue',
+    position: 'absolute', 
+    marginBottom: 10, 
+    bottom:40, 
+    backgroundColor: 'white', 
+    width: '80%'
+  },
+  directionsText: {
+    fontWeight: '700',
+    marginBottom:20, 
+    marginLeft: 20
+  },
+  atExitText: {
+    marginBottom:20, 
+    marginLeft: 30
+  },
+  bottomDividerListItem: {
+    marginHorizontal: 10, 
+    marginTop: 0, 
+    marginBottom: 10, 
+    paddingTop: 0
+  }
 })
