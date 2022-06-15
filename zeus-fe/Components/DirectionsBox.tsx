@@ -3,12 +3,12 @@ import { ScrollView, Text, View, StyleSheet } from 'react-native'
 import { ListItem } from 'react-native-elements/dist/list/ListItem'
 import HTMLView from 'react-native-htmlview'
 
-export const DirectionsBox = ({ directions, preferredExit }: string | any) => {
+export const DirectionsBox = (props: { directions: any; preferredExit: string }) => {
   return (
     <ScrollView style={styles.directionsScrollView}>
       <Text style={styles.directionsText}>Directions: </Text>
-      <Text style={styles.atExitText}>At exit {preferredExit.split(' ')[0]} </Text>
-      {directions?.map((step: any, index: number) => {
+      <Text style={styles.atExitText}>At exit {props.preferredExit.split(' ')[0]} </Text>
+      {props.directions?.map((step: any, index: number) => {
         let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
         replacedHtmlInstructions = replacedHtmlInstructions.replace('</b>', '')
         return (

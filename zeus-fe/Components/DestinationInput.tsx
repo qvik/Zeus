@@ -1,7 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 
-export const DestinationInput = (props: any) => {
+export const DestinationInput = (props: {
+  selectedDestination: string
+  setSelectedDestination: (value: string) => void
+  handleSubmit: () => void
+}) => {
   return (
     <>
       <View style={styles.inputContainer}>
