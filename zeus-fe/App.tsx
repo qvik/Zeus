@@ -1,16 +1,15 @@
 import { StatusBar } from 'expo-status-bar'
 import * as React from 'react'
 import { useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import MapView from 'react-native-maps'
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
 import { avoids, metroExits, travelModes, initialRegion } from './Constants'
 import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from './Components/DestinationInput'
-import { ListItem } from 'react-native-elements/dist/list/ListItem'
-import HTMLView from 'react-native-htmlview'
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
+import { DirectionsBox } from './Components/DirectionsBox'
 
 export default function App() {
   useFonts({ Poppins_700Bold })
@@ -62,13 +61,10 @@ export default function App() {
     }
   }
 
-  const handleDirectionBox = () => {
-    // Todo: Show the direction box with directions after we have done the calculations from google API
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Metro Exits</Text>
+      <Text style={styles.titleTextSecond}>FINDER</Text>
       <DestinationInput
         selectedDestination={selectedDestination}
         setSelectedDestination={setSelectedDestination}
@@ -77,35 +73,13 @@ export default function App() {
       <MapView style={styles.map} initialRegion={initialRegion}>
         <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
       </MapView>
-      {
-        preferredExit ? 
+      {preferredExit ? (
         <>
-          <ScrollView style={styles.directionsScrollView}>
-            <Text style={styles.directionsText}>Directions: </Text>
-            <Text style={styles.atExitText}>At exit: {preferredExit} </Text>
-            {
-              directions?.map((step, index) => {
-                let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
-                replacedHtmlInstructions = replacedHtmlInstructions.replace('</b>', '')
-                return (
-                  <View key={index}>
-                    <View style={{marginLeft: 40}}>
-                      <Text style={{marginBottom:1}} >Step: {index} - Distance: {step.distance.text},</Text>
-                      <HTMLView value={replacedHtmlInstructions} />
-                    </View>
-                    <ListItem bottomDivider style={styles.bottomDividerListItem}></ListItem>
-                  </View>
-                )
-              })
-            }
-          </ScrollView>
-
-          <View >
-            <Text style={{marginTop: 6, height: 30}}>Take the exit: {preferredExit}</Text>
-          </View>
+          <DirectionsBox preferredExit={preferredExit} directions={directions} />
         </>
-        : <></>
-      }
+      ) : (
+        <></>
+      )}
       <StatusBar style="auto" />
     </View>
   )
@@ -118,16 +92,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 0,
   },
   map: {
     width: '100%',
-    height: '83%',
+    height: '75%',
   },
   titleText: {
     fontWeight: '700',
     fontSize: 30,
     marginBottom: 0,
+    marginTop: 75,
   },
   finderText: {
     fontWeight: '700',
@@ -135,29 +110,9 @@ const styles = StyleSheet.create({
     marginTop: 0,
     paddingTop: 0,
   },
-  directionsScrollView: {
-    height: 200, 
-    borderWidth: 3,
-    borderColor: 'blue',
-    position: 'absolute', 
-    marginBottom: 10, 
-    bottom:40, 
-    backgroundColor: 'white', 
-    width: '80%'
-  },
-  directionsText: {
+  titleTextSecond: {
     fontWeight: '700',
-    marginBottom:20, 
-    marginLeft: 20
+    fontSize: 40,
+    marginTop: -10,
   },
-  atExitText: {
-    marginBottom:20, 
-    marginLeft: 30
-  },
-  bottomDividerListItem: {
-    marginHorizontal: 10, 
-    marginTop: 0, 
-    marginBottom: 10, 
-    paddingTop: 0
-  }
 })
