@@ -1,16 +1,15 @@
 import { StatusBar } from 'expo-status-bar'
 import * as React from 'react'
 import { useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import MapView from 'react-native-maps'
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
 import { avoids, metroExits, travelModes, initialRegion } from './Constants'
 import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from './Components/DestinationInput'
-import { ListItem } from 'react-native-elements/dist/list/ListItem'
-import HTMLView from 'react-native-htmlview'
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
+import { DirectionsBox } from './Components/DirectionsBox'
 
 export default function App() {
   useFonts({ Poppins_700Bold })
@@ -76,25 +75,7 @@ export default function App() {
       </MapView>
       {preferredExit ? (
         <>
-          <ScrollView style={styles.directionsScrollView}>
-            <Text style={styles.directionsText}>Directions: </Text>
-            <Text style={styles.atExitText}>At exit {preferredExit.split(' ')[0]} </Text>
-            {directions?.map((step, index) => {
-              let replacedHtmlInstructions = step.html_instructions.replace('<b>', '')
-              replacedHtmlInstructions = replacedHtmlInstructions.replace('</b>', '')
-              return (
-                <View key={index}>
-                  <View style={{ marginLeft: 40 }}>
-                    <Text style={{ marginBottom: 2 }}>
-                      Step {index + 1}: Distance: {step.distance.text},
-                    </Text>
-                    <HTMLView value={replacedHtmlInstructions} />
-                  </View>
-                  <ListItem bottomDivider style={styles.bottomDividerListItem}></ListItem>
-                </View>
-              )
-            })}
-          </ScrollView>
+          <DirectionsBox preferredExit={preferredExit} directions={directions} />
         </>
       ) : (
         <></>
@@ -133,30 +114,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 40,
     marginTop: -10,
-  },
-  directionsScrollView: {
-    padding: 8,
-    height: 200,
-    borderWidth: 3,
-    borderRadius: 4,
-    position: 'absolute',
-    bottom: 20,
-    backgroundColor: 'white',
-    width: '80%',
-  },
-  directionsText: {
-    fontWeight: '700',
-    marginBottom: 15,
-    marginLeft: 10,
-  },
-  atExitText: {
-    marginBottom: 15,
-    marginLeft: 30,
-  },
-  bottomDividerListItem: {
-    marginHorizontal: 10,
-    marginTop: 0,
-    marginBottom: 10,
-    paddingTop: 0,
   },
 })
