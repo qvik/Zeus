@@ -16,7 +16,7 @@ Team Stockholm Internal Project
 
 #### # expo start
 
-#### # press "w"
+#### # press "i"
 
 ```
 
