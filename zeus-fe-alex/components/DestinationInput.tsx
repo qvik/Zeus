@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, TextInput, Text, View, Alert, Pressable, GestureResponderEvent} from 'react-native'
-import { Picker } from '@react-native-picker/picker'
+import { StyleSheet, TextInput, Text, View, Pressable, GestureResponderEvent} from 'react-native'
 //import { Text } from '../components/Themed';
 export const DestinationInput = (props: { selectedDestination: string | undefined; setSelectedDestination: (arg0: any) => void; handleSubmit: ((event: GestureResponderEvent) => void) | null | undefined; }) => {
     return (
@@ -27,19 +26,25 @@ const styles = StyleSheet.create({
       marginTop: 2,
     },
     input: {
-      width: '52%',
-      marginBottom:10,
-      marginTop: 10,
-      marginRight: 10,
-      borderBottomWidth: 1,
-      borderBottomColor: 'grey',
+      border: 1,
+      backgroundColor: '#fff',
+      padding: 10,
+      marginBottom: 10,
+      marginTop: 1,
+      marginRight: 5,
+      width: '54%',
+      height: 33,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: 'grey',
     },
     button: {
-      marginBottom:10, 
-      marginTop: 10,
+      height: 33,
+      width: 54,
+      marginTop: 1,
+      alignItems: 'center',
       justifyContent: 'center',
-      borderBottomWidth: 1,
-      borderBottomColor: 'grey',    
+      borderColor: 'grey', 
     },
     buttonText: {    
       fontWeight: '700',
