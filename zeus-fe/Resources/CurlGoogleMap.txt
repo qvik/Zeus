@@ -1,4 +1,0 @@
-curl --location --request GET 'undefined?arrival_time=<number>&departure_time=<number>
-&alternatives=<boolean>&avoid=highways&destination=Victoria, BC&origin=Vancouver, BC
-&units=metric&waypoints=MA|Lexington,MA&language=en&mode=<string>&region=en&traffic_model=pessimistic
-&transit_mode=train|tram|subway&transit_routing_preference=less_walking&key=<API Key>'
