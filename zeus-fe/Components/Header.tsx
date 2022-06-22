@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     height: 55,
     width: 76,
     resizeMode: 'contain',
-    marginRight: 10,
+    marginRight: 20,
   },
 })
