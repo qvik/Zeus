@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { View, FlatList, LayoutAnimation, TouchableOpacity, StyleSheet, ScrollView} from "react-native";
 import HTMLView from 'react-native-htmlview'
 import { Text } from '../components/Themed';
+import { StationPicker } from '../components/StationPicker'
 
 export const DirectionsDrawer = (props: { title: string , items: DirectionStep[] | undefined, preferredExit: string }) => {
   console.log(`items in DirectionsDrawer is: ${JSON.stringify(props.items)}`)
@@ -66,7 +67,8 @@ const styles = StyleSheet.create({
   listContainer: {
     borderBottomColor: "#EAEAEA",
     borderBottomWidth: 1,
-    height: '50%'
+    height: '50%',
+    backgroundColor: 'white'
   },
   plusMinus: {
     fontSize: 18,

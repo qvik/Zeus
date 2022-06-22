@@ -8,8 +8,7 @@ import { StationPicker } from '../components/StationPicker'
 import { DestinationInput } from '../components/DestinationInput'
 import { DirectionsDrawer } from '../components/DIrectionsDrawer'
 import MapViewDirections from 'react-native-maps-directions'
-import { updateDirections } from '../components/Redux/DirectionsSlice';
-
+import { updateDirectionData } from '../components/Redux/DirectionsSlice';
 
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
@@ -51,7 +50,6 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
     let stationExitsList = metroExitsList.filter( (it) => it.stationId === tmp.id )
     //console.log(`stationExitsList is: ${JSON.stringify(stationExitsList)}`)
     setExitsForSelectedStation(stationExitsList)
-
   }
 
   const handleSubmit = async () => {
@@ -78,7 +76,15 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
           tempValue = legs.distance.value
           setPreferredExit(legs.start_address)
           setDirections(legs.steps)
-          dispatch(updateDirections(legs.steps))
+          //dispatch(updateDirections(legs.steps))
+          dispatch(updateDirectionData({
+            'startLocation': legs.start_address,
+            'endLocation': legs.end_address,
+            'startLocationCoords': legs.start_location,
+            'endLocationCoords': legs.end_location,
+            'directionSteps': legs.steps
+          } ))
+
           setStartLocation({
             latitude: legs.start_location.lat,
             longitude: legs.start_location.lng,
@@ -93,7 +99,7 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
       console.log(error)
     }
   }
-
+  
   return (
     <>
     <View style={{flexDirection: 'row', marginBottom: 5}}>

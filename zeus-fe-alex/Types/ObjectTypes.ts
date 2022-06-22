@@ -30,6 +30,14 @@ interface InitialRegion {
     longitudeDelta: number,
 }
 
+interface DirectionData {
+    'startLocation': string,
+    'endLocation': string,
+    'startLocationCoords': Location1,
+    'endLocationCoords': Location1
+    'directionSteps': DirectionStep[]
+}
+
 interface DirectionStep {
     'distance': Distance,
     'duration': Duration,

@@ -34,7 +34,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>(); //must be in RootTabParamList ../types.tsx
+const Stack = createNativeStackNavigator<RootStackParamList>(); //must be in RootStackParamList ../types.tsx
 
 function RootNavigator() {
   return (
@@ -52,7 +52,7 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator<RootTabParamList>(); //must be in RootTabParamList ../types.tsx
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();

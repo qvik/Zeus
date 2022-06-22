@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import directionsSliceReducer from './DirectionsSlice'
+import directionsDataSliceReducer from './DirectionsSlice'
 
 export const store = configureStore({
     reducer: {
-        directions: directionsSliceReducer
+        directionData: directionsDataSliceReducer
     }
 })
 
