@@ -4,7 +4,7 @@ import { StyleSheet, Image, View } from 'react-native'
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
 import { DestinationInput } from './DestinationInput'
 
-export default function Header({ handleSubmit }) {
+const Header = (props: { handleSubmit: () => void }) => {
   useFonts({ Poppins_700Bold })
   const [selectedDestination, setSelectedDestination] = useState<string>('')
 
@@ -14,11 +14,13 @@ export default function Header({ handleSubmit }) {
       <DestinationInput
         selectedDestination={selectedDestination}
         setSelectedDestination={setSelectedDestination}
-        handleSubmit={handleSubmit}
+        handleSubmit={props.handleSubmit}
       />
     </View>
   )
 }
+
+export default Header
 
 // Todo: Add correct CSS from figma
 const styles = StyleSheet.create({
@@ -30,10 +32,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '5%',
+    paddingTop: 25,
   },
   headerLogo: {
-    height: 50,
+    height: 55,
+    width: 76,
     resizeMode: 'contain',
+    marginRight: 10,
   },
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput } from 'react-native'
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
 import SearchIcon from '../assets/search_icon.svg'
 
 export const DestinationInput = (props: {
@@ -13,9 +13,11 @@ export const DestinationInput = (props: {
         style={styles.input}
         value={props.selectedDestination}
         onChangeText={(value: any) => props.setSelectedDestination(value)}
-        placeholder="Address"
+        placeholder="Station or address"
       />
-      <SearchIcon />
+      <TouchableOpacity style={styles.iconWrapper} onPress={props.handleSubmit}>
+        <SearchIcon />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -27,23 +29,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
-    border: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.5)',
     backgroundColor: '#fff',
     padding: 10,
     width: 240,
     height: 41,
+    position: 'relative',
   },
-  button: {
-    height: 41,
-    width: 70,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#18A0FB',
-    borderRadius: 6,
-  },
-  buttonText: {
-    fontWeight: '500',
-    fontSize: 15,
-    color: 'white',
+  iconWrapper: {
+    position: 'absolute',
+    right: 10,
   },
 })
