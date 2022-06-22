@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
 import * as React from 'react'
 import { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Image, View } from 'react-native'
 import MapView from 'react-native-maps'
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
 import { avoids, metroExits, travelModes, initialRegion } from './Constants'
 import MapViewDirections from 'react-native-maps-directions'
-import { DestinationInput } from './Components/DestinationInput'
+import Header from './Components/Header'
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
 import { DirectionsBox } from './Components/DirectionsBox'
@@ -63,13 +63,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Metro Exits</Text>
-      <Text style={styles.titleTextSecond}>FINDER</Text>
-      <DestinationInput
-        selectedDestination={selectedDestination}
-        setSelectedDestination={setSelectedDestination}
-        handleSubmit={handleSubmit}
-      />
+      <Header handleSubmit={handleSubmit} />
       <MapView style={styles.map} initialRegion={initialRegion}>
         <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
       </MapView>
@@ -88,31 +82,12 @@ export default function App() {
 // Todo: Add correct CSS from figma
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    backgroundColor: '#D9D9D9',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 0,
   },
   map: {
     width: '100%',
-    height: '75%',
-  },
-  titleText: {
-    fontWeight: '700',
-    fontSize: 30,
-    marginBottom: 0,
-    marginTop: 75,
-  },
-  finderText: {
-    fontWeight: '700',
-    fontSize: 40,
-    marginTop: 0,
-    paddingTop: 0,
-  },
-  titleTextSecond: {
-    fontWeight: '700',
-    fontSize: 40,
-    marginTop: -10,
+    height: '85%',
   },
 })

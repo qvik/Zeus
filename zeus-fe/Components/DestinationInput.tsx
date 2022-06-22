@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
+import { StyleSheet, View, TextInput } from 'react-native'
+import SearchIcon from '../assets/search_icon.svg'
 
 export const DestinationInput = (props: {
   selectedDestination: string
@@ -7,19 +8,15 @@ export const DestinationInput = (props: {
   handleSubmit: () => void
 }) => {
   return (
-    <>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={props.selectedDestination}
-          onChangeText={(value: any) => props.setSelectedDestination(value)}
-          placeholder="Address"
-        />
-        <Pressable style={styles.button} onPress={props.handleSubmit}>
-          <Text style={styles.buttonText}>Search</Text>
-        </Pressable>
-      </View>
-    </>
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.input}
+        value={props.selectedDestination}
+        onChangeText={(value: any) => props.setSelectedDestination(value)}
+        placeholder="Address"
+      />
+      <SearchIcon />
+    </View>
   )
 }
 
@@ -28,15 +25,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 10,
   },
   input: {
     border: 1,
     backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 10,
-    marginTop: 13,
-    marginRight: 8,
     width: 240,
     height: 41,
   },
