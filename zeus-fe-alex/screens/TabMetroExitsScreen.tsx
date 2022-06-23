@@ -82,7 +82,9 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
             'endLocation': legs.end_address,
             'startLocationCoords': legs.start_location,
             'endLocationCoords': legs.end_location,
-            'directionSteps': legs.steps
+            'duration': legs.duration,
+            'directionSteps': legs.steps,
+            'preferredExit': legs.start_address
           } ))
 
           setStartLocation({

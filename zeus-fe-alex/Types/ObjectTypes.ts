@@ -34,8 +34,10 @@ interface DirectionData {
     'startLocation': string,
     'endLocation': string,
     'startLocationCoords': Location1,
-    'endLocationCoords': Location1
-    'directionSteps': DirectionStep[]
+    'endLocationCoords': Location1,
+    'duration': Duration,
+    'directionSteps': DirectionStep[],
+    'preferredExit': string,
 }
 
 interface DirectionStep {
@@ -54,7 +56,7 @@ interface Distance {
 
 interface Duration {
     'text': string,
-    'value': string
+    'value': number
 }
 
 interface Location1 {

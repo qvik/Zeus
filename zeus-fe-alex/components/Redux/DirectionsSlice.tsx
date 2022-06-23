@@ -7,16 +7,18 @@ const initialState: DirectionData = {
     'endLocation': '',
     'startLocationCoords': {lat: 0, lng: 0},
     'endLocationCoords': {lat: 0, lng: 0},
+    'duration': {text: '', value: 0},
     'directionSteps': [ 
         {
             'distance': {text: '', value: ''}, 
-            'duration': {text: '', value: ''},
+            'duration': {text: '', value: 0},
             'start_location': {lat: 0, lng: 0},
             'end_location': {lat: 0, lng: 0},
             'html_instructions': '',
             'travel_mode': '' 
         }
-    ]
+    ],
+    'preferredExit': ''
 }
 
 
