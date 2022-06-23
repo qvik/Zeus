@@ -57,7 +57,9 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
     exitsForSelectedStation?.forEach( (it) => {
       urls = [...urls, `${GOOGLE_API_BASE_URL}origin=${it.latitude},${it.longitude}&destination=${selectedDestination}&mode=${travelModes[1].name}&avoid=${avoid}&key=${GOOGLE_API_KEY}`]
     })
+    console.log("")
     console.log(`urls is: ${urls}`)
+    console.log("")
     
     try {
       const response = await Promise.all(
@@ -66,7 +68,7 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
           return resp.json()
         }),
       )
-      console.log(`response: is: ${JSON.stringify(response)}`)
+      //console.log(`response: is: ${JSON.stringify(response)}`)
       if (response[0].status === 'NOT_FOUND') return setError('Address not found! Please input a valid address.')
 
       let tempValue = 13600000
@@ -147,7 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
   imageContainer: {
     marginLeft: 15,
     marginRight: 10,
@@ -176,7 +177,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: 'black',
     position: 'absolute', 
-  
     bottom:40, 
     backgroundColor: 'white', 
     width: '80%'

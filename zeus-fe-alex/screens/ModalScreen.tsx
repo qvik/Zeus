@@ -8,6 +8,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import * as WebBrowser from 'expo-web-browser';
+import Colors from '../constants/Colors';
 
 export default function ModalScreen() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +23,30 @@ export default function ModalScreen() {
     setIsOpen(value => !value);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   }, []);
+
+  function handleHelpPress() {
+    let startLocation = ""
+    startLocation = directionData.startLocation.split(' ')[0]
+    console.log(`startLocation.split(' ') is: ${startLocation}`)
+    startLocation = startLocation.split(',')[0]
+    console.log(`startLocation.split(',') is: ${startLocation}`)
+    let endLocation = ""
+    endLocation = directionData.endLocation.split(' ')[0]
+    endLocation = endLocation.split(',')[0]
+
+    console.log(`startLocation is: ${startLocation}`)
+    console.log(`endLocation is: ${endLocation}`)
+
+    const urlString = `https://www.google.com/maps/dir/${startLocation}+stockholm/@${directionData.startLocationCoords.lat},${directionData.startLocationCoords.lng},15z/${endLocation}/@${directionData.endLocationCoords.lat},${directionData.endLocationCoords.lng},15z`
+    console.log(``)
+    console.log(``)
+    console.log(`urlString is: ${urlString}`)
+    console.log(``)
+
+    //'https://www.google.com/maps/dir/Malmskillnadsgatan/@59.33454740000001,18.065731,15z/,Riddarholmen,/@59.33454740000001,18.065731,15z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x465f9d68bc94411b:0x4fa50d706c120441!2m2!1d18.0592204!2d59.340353!1m5!1m1!1s0x465f77e197edb25f:0xeb8ea51073e21688!2m2!1d18.0635304!2d59.324902!3e2'
+    WebBrowser.openBrowserAsync(encodeURI(urlString)).catch
+    (err => console.log(err));
+  }
 
   return (
     <>
@@ -80,7 +106,15 @@ export default function ModalScreen() {
             })
           }
         </ScrollView>
+        <View style={styles.helpContainer}>
+          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+             Open directions on maps.google.com
+            </Text>
+          </TouchableOpacity>
         </View>
+        </View>
+
       </View>
 
       {/* Arrive at container */ }
@@ -120,7 +154,7 @@ const styles = StyleSheet.create({
   },
   stationExitContainer: {
       flexDirection: 'column',  
-      marginBottom: 20,    
+      marginBottom: 1,    
   },
   stationExitDirectionContainer: {
     flexDirection: 'row',
@@ -155,7 +189,8 @@ const styles = StyleSheet.create({
   arriveAtContainer: {
     marginTop: 1,
     flexDirection: 'column',  
-    marginBottom: 20,    
+    marginBottom: 20,
+    height: '10%'    
   },
  arriveAtTextGrey: {
     marginBottom: 7, 
@@ -192,13 +227,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: 'white'
   },
+  helpContainer: {
+    marginTop: 15,
+    marginHorizontal: 20,
+    alignItems: 'center',
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    textAlign: 'center',
+  },
   hidden: {
     height: 0,
   },
   listContainer: {
     borderBottomColor: "#EAEAEA",
     borderBottomWidth: 1,
-    height: '45%',
+    height: '53%',
     backgroundColor: 'white'
   },
 
