@@ -1,9 +1,9 @@
-import React from 'react'
-import { StyleSheet, Text, View, TextInput, Alert, Pressable } from 'react-native'
-
-export const DestinationInput = (props: any) => {
-  return (
-    <>
+import React from 'react';
+import { StyleSheet, TextInput, Text, View, Pressable, GestureResponderEvent} from 'react-native'
+//import { Text } from '../components/Themed';
+export const DestinationInput = (props: { selectedDestination: string | undefined; setSelectedDestination: (arg0: any) => void; handleSubmit: ((event: GestureResponderEvent) => void) | null | undefined; }) => {
+    return (
+        <>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -14,33 +14,40 @@ export const DestinationInput = (props: any) => {
         <Pressable style={styles.button} onPress={props.handleSubmit}>
           <Text style={styles.buttonText}> Submit </Text>
         </Pressable>
-      </View>
-    </>
-  )
+
+      </View>        
+        </>
+    )
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  input: {
-    marginBottom: 10,
-    marginTop: 13,
-    marginRight: '8px',
-    width: '241px',
-    height: '41px',
-  },
-  button: {
-    marginBottom: 10,
-    marginTop: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    fontWeight: '700',
-    fontSize: 12,
-    color: 'blue',
-    borderRightWidth: 3,
-  },
-})
+    inputContainer: {
+      flexDirection: 'row',
+      marginTop: 2,
+    },
+    input: {
+      backgroundColor: '#fff',
+      padding: 10,
+      marginBottom: 10,
+      marginTop: 1,
+      marginRight: 5,
+      width: '54%',
+      height: 33,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: 'grey',
+    },
+    button: {
+      height: 33,
+      width: 54,
+      marginTop: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderColor: 'grey', 
+    },
+    buttonText: {    
+      fontWeight: '700',
+      fontSize: 12,
+      color: 'blue',
+    },
+  })
