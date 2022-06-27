@@ -12,7 +12,6 @@ import { updateDirectionData } from "../Components/Redux/DirectionsSlice";
 
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from "@env";
-//import { initialRegion } from '../constants'
 
 export const TabMetroExitsScreen = ({
   navigation,
@@ -23,21 +22,13 @@ export const TabMetroExitsScreen = ({
   );
   const [preferredExit, setPreferredExit] = useState<string>("");
   const [destination, setDestination] = useState({ latitude: 0, longitude: 0 });
-  const [startLocation, setStartLocation] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
+  const [startLocation, setStartLocation] = useState({ latitude: 0, longitude: 0});
   const [directions, setDirections] = useState<DirectionStep[]>();
   const [stationsList, setStationsList] = useState<Station[]>(stations);
-  const [metroExitsList, setMetroExitisList] =
-    useState<MetroExit[]>(metroExits);
-  const [selectedStation, setSelectedStation] =
-    useState<string>("Pick a station");
-  const [exitsForSelectedStation, setExitsForSelectedStation] =
-    useState<MetroExit[]>();
-  const [initialRegionObj, setInitialRegionObj] =
-    useState<InitialRegion>(initialRegion);
-
+  const [metroExitsList, setMetroExitisList] = useState<MetroExit[]>(metroExits);
+  const [selectedStation, setSelectedStation] = useState<string>("Pick a station");
+  const [exitsForSelectedStation, setExitsForSelectedStation] = useState<MetroExit[]>();
+  const [initialRegionObj, setInitialRegionObj] = useState<InitialRegion>(initialRegion);
   const [error, setError] = useState("");
 
   const dispatch = useAppDispatch();
