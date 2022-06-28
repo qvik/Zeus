@@ -8,9 +8,19 @@ interface MetroExit {
     id: number,
     name: string,
     stationId: number,
-    latitude: string,
-    longitude: string,
+    latitude: number,
+    longitude: number,
     imgSrc: any,
+}
+
+interface MetroExitDistance {
+    id: number,
+    name: string,
+    stationId: number,
+    latitude: number,
+    longitude: number,
+    imgSrc: any,
+    distance: number,
 }
 
 interface TravelMode {

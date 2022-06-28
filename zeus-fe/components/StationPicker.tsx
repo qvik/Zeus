@@ -9,7 +9,7 @@ import { RootTabScreenProps } from '../types'
 
 export const StationPicker = (props: { selectedStation: string | undefined; handleSelectedStation: (arg0: any) => void; stationsList: Station[]; }) => {
   const dropdownRef = useRef({});  
-  
+  console.log(`selectedStation in stationPicker is: ${props.selectedStation}`)
   return (
       <View style={styles.viewContainer}>
         <ScrollView
