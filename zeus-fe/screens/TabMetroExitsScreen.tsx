@@ -176,15 +176,14 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<"TabMetro
         </View>
 
         <View style={{ width: "90%", marginTop: 3 }}>
-          {
-          !haveStartCoords ?
+
             <StationPicker
               selectedStation={selectedStation}
               stationsList={stationsList}
               handleSelectedStation={handleSelectedStation}
             />
-          : <Text style={{marginTop: 25}}>Autoselected station is: {selectedStation}</Text>
-          }
+
+
           <View style={{}}>
             <DestinationInput
               selectedDestination={selectedDestination}

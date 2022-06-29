@@ -5,7 +5,6 @@ const { width } = Dimensions.get('window')
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import SelectDropdown from 'react-native-select-dropdown'
-import { RootTabScreenProps } from '../types'
 
 export const StationPicker = (props: { selectedStation: string | undefined; handleSelectedStation: (arg0: any) => void; stationsList: Station[]; }) => {
   const dropdownRef = useRef({});  
@@ -43,7 +42,7 @@ export const StationPicker = (props: { selectedStation: string | undefined; hand
                   ) : (
                     <FontAwesome name="question-circle-o" color={'#4f4d4d'} size={22} />
                   )}
-                  <Text style={styles.dropdownBtnTxt}>{selectedItem ? selectedItem.name : 'Select Station'}</Text>
+                  <Text style={styles.dropdownBtnTxt}>{selectedItem ? selectedItem.name : props.selectedStation}</Text>
                   <FontAwesome name="chevron-down" color={'#4f4d4d'} size={16} />
                 </View>
               );
