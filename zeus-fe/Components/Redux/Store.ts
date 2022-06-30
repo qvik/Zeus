@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import directionsDataSliceReducer from './DirectionsSlice'
 
 export const store = configureStore({
-    reducer: {
-        directionData: directionsDataSliceReducer
-    }
+  reducer: {
+    directionData: directionsDataSliceReducer,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>

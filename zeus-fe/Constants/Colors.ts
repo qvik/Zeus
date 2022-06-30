@@ -1,5 +1,5 @@
-const tintColorLight = '#2f95dc'; //color on bottomNav active tab
-const tintColorDark = '#fff';   //if dark mode color on bottomNav active tab
+const tintColorLight = '#2f95dc' //color on bottomNav active tab
+const tintColorDark = '#fff' //if dark mode color on bottomNav active tab
 
 export default {
   light: {
@@ -16,4 +16,4 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
-};
+}

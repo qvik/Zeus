@@ -44,7 +44,6 @@
     "react-native-gesture-handler": "^2.4.2",
     "react-native-maps-directions": "^1.8.0",
     "react-native-picker": "^4.3.7",
-    
     "react-native-screens": "~3.11.1",
     "react-native-select-dropdown": "^2.0.3",
     "react-native-web": "0.17.7",

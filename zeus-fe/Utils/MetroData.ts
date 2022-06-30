@@ -165,5 +165,4 @@ export const metroExits = [
     longitude: '18.059163',
     imgSrc: ['http://img1', 'http://img2', 'http://img3'],
   },
-
 ]

@@ -1,67 +1,67 @@
 interface Station {
-    id: number,
-    name: string,
-    imgSrc: string,    
+  id: number
+  name: string
+  imgSrc: string
 }
 
 interface MetroExit {
-    id: number,
-    name: string,
-    stationId: number,
-    latitude: string,
-    longitude: string,
-    imgSrc: any,
+  id: number
+  name: string
+  stationId: number
+  latitude: string
+  longitude: string
+  imgSrc: any
 }
 
 interface TravelMode {
-    id: number,
-    name: string,
+  id: number
+  name: string
 }
 
 interface Avoid {
-    id: number,
-    name: string,
+  id: number
+  name: string
 }
 
 interface InitialRegion {
-    latitude: number,
-    longitude: number,
-    latitudeDelta: number,
-    longitudeDelta: number,
+  latitude: number
+  longitude: number
+  latitudeDelta: number
+  longitudeDelta: number
 }
 
 interface DirectionData {
-    'startLocation': string,
-    'endLocation': string,
-    'startLocationCoords': Location1,
-    'endLocationCoords': Location1,
-    'duration': Duration,
-    'directionSteps': DirectionStep[],
-    'preferredExit': string,
+  startLocation: string
+  endLocation: string
+  startLocationCoords: Location1
+  endLocationCoords: Location1
+  duration: Duration
+  directionSteps: DirectionStep[]
+  preferredExit: string
 }
 
 interface DirectionStep {
-    'distance': Distance,
-    'duration': Duration,
-    'start_location': Location1,
-    'end_location': Location1,
-    'html_instructions': string,
-    'travel_mode': string
+  distance: Distance
+  duration: Duration
+  start_location: Location1
+  end_location: Location1
+  html_instructions: string
+  travel_mode: string
 }
 
 interface Distance {
-    'text': string,
-    'value': string
+  text: string
+  value: string
 }
 
 interface Duration {
-    'text': string,
-    'value': number
+  text: string
+  value: number
 }
 
 interface Location1 {
-    'lat': number,
-    'lng': number
+  lat: number
+  lng: number
 }
 
 /*let tmp: DirectionStep[] = [ {

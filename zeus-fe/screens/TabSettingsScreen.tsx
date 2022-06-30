@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
-import EditScreenInfo from '../Components/EditScreenInfo';
-import { Text, View } from '../Components/Themed';
+import EditScreenInfo from '../Components/EditScreenInfo'
+import { Text, View } from '../Components/Themed'
 
 export const TabSettingsScreen = () => {
   return (
@@ -10,7 +10,7 @@ export const TabSettingsScreen = () => {
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/Screens/TabSettingsScreen.tsx" />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-});
+})
