@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { StyleSheet, LayoutAnimation, TouchableOpacity, ScrollView } from 'react-native'
-import { useAppSelector } from '../components/redux/Hooks'
+import { useAppSelector } from '../components/redux/hooks'
 import { selectCurrentDirectionData } from '../components/redux/DirectionsSlice'
 import { Text, View } from '../components/Themed'
 import HTMLView from 'react-native-htmlview'

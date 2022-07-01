@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../components/redux/Hooks'
+import { useAppSelector, useAppDispatch } from '../components/redux/hooks'
 import { RootTabScreenProps } from '../types'
 import { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, Image, View } from 'react-native'
