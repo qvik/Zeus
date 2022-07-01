@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { StyleSheet, LayoutAnimation, TouchableOpacity, ScrollView } from 'react-native'
-import { useAppSelector } from '../Components/Redux/Hooks'
-import { selectCurrentDirectionData } from '../Components/Redux/DirectionsSlice'
-import { Text, View } from '../Components/Themed'
+import { useAppSelector } from '../components/redux/Hooks'
+import { selectCurrentDirectionData } from '../components/redux/DirectionsSlice'
+import { Text, View } from '../components/Themed'
 import HTMLView from 'react-native-htmlview'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Entypo } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
-import Colors from '../Constants/Colors'
+import Colors from '../constants/Colors'
 
 export default function ModalScreen() {
   const [isOpen, setIsOpen] = useState(false)
