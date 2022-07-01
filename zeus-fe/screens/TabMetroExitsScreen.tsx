@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../components/redux/hooks'
+import { useAppDispatch } from '../components/redux/hooks'
 import { RootTabScreenProps } from '../types'
 import { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, Image, View } from 'react-native'
@@ -9,6 +9,7 @@ import { DestinationInput } from '../components/DestinationInput'
 import { DirectionsDrawer } from '../components/DIrectionsDrawer'
 import MapViewDirections from 'react-native-maps-directions'
 import { updateDirectionData } from '../components/redux/DirectionsSlice'
+import Logo from '../screens/images/logo.svg'
 
 // @ts-ignore
 import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
@@ -114,7 +115,7 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
     <>
       <View style={{ flexDirection: 'row', marginBottom: 5 }}>
         <View style={styles.imageContainer}>
-          <Image source={require('./Images/logo.png')} style={styles.imageStyle} />
+          <Logo style={styles.imageStyle} />
         </View>
 
         <View style={{ width: '90%', marginTop: 3 }}>
