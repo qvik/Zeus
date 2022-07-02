@@ -1,18 +1,16 @@
-import { useAppDispatch } from '../components/redux/hooks'
-import { RootTabScreenProps } from '../types'
+import { GOOGLE_API_BASE_URL, GOOGLE_API_KEY } from '@env'
 import { useEffect, useState } from 'react'
-import { StyleSheet, SafeAreaView, Image, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import MapView from 'react-native-maps'
-import { avoids, stations, metroExits, travelModes, initialRegion } from '../utils/MetroData'
-import { StationPicker } from '../components/StationPicker'
+import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from '../components/DestinationInput'
 import { DirectionsDrawer } from '../components/DIrectionsDrawer'
-import MapViewDirections from 'react-native-maps-directions'
 import { updateDirectionData } from '../components/redux/DirectionsSlice'
+import { useAppDispatch } from '../components/redux/hooks'
+import { StationPicker } from '../components/StationPicker'
 import Logo from '../screens/images/logo.svg'
-
-// @ts-ignore
-import { GOOGLE_API_KEY, GOOGLE_API_BASE_URL } from '@env'
+import { RootTabScreenProps } from '../types'
+import { avoids, initialRegion, metroExits, stations, travelModes } from '../utils/MetroData'
 
 export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetroExits'>) => {
   const [selectedDestination, setSelectedDestination] = useState<string>('')
@@ -32,7 +30,6 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
   const [error, setError] = useState('')
 
   const dispatch = useAppDispatch()
-  //const dispatch = useDispatch()
 
   useEffect(() => {
     //console.log(`stations is: ${JSON.stringify(stationsList)}`)
@@ -47,7 +44,7 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
   const handleSelectedStation = (pickedStation: string) => {
     //console.log(`pickedStation is: ${pickedStation}`)
     setSelectedStation(pickedStation)
-    let tmp: Station = stationsList.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
+    const tmp: Station = stationsList.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
     console.log(`tmp is: ${JSON.stringify(tmp)}`)
     let stationExitsList = metroExitsList.filter((it) => it.stationId === tmp.id)
     //console.log(`stationExitsList is: ${JSON.stringify(stationExitsList)}`)
@@ -113,11 +110,10 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
 
   return (
     <>
-      <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+      <View style={styles.header}>
         <View style={styles.imageContainer}>
           <Logo style={styles.imageStyle} />
         </View>
-
         <View style={{ width: '90%', marginTop: 3 }}>
           <StationPicker
             selectedStation={selectedStation}
@@ -133,29 +129,32 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
           </View>
         </View>
       </View>
-
-      <SafeAreaView style={styles.container}>
-        {/*<Text style={styles.titleText}>Metro Exits Finder</Text> */}
-        <MapView style={styles.map} initialRegion={initialRegionObj}>
-          <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
-        </MapView>
-        {preferredExit ? (
-          <>
-            <DirectionsDrawer title="Directions: " items={directions} preferredExit={preferredExit} />
-          </>
-        ) : (
-          <></>
-        )}
-      </SafeAreaView>
+      <MapView style={styles.map} initialRegion={initialRegionObj}>
+        <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
+      </MapView>
+      {preferredExit ? (
+        <DirectionsDrawer title="Directions: " items={directions} preferredExit={preferredExit} />
+      ) : (
+        <></>
+      )}
     </>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  map: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  header: {
+    zIndex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'hsla(0, 0%, 0%, 0.85)',
+    paddingTop: '10%',
   },
   imageContainer: {
     marginLeft: 15,
@@ -169,46 +168,5 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     height: 70,
     resizeMode: 'cover',
-  },
-  map: {
-    width: '100%',
-    flex: 1,
-    height: '80%',
-  },
-  titleText: {
-    fontWeight: '700',
-    fontSize: 30,
-    marginBottom: 0,
-    marginTop: 10,
-  },
-  finderText: {
-    fontWeight: '700',
-    fontSize: 30,
-    marginTop: 20,
-    paddingTop: 0,
-  },
-  directionsScrollView: {
-    height: 200,
-    borderWidth: 3,
-    borderColor: 'black',
-    position: 'absolute',
-    bottom: 40,
-    backgroundColor: 'white',
-    width: '80%',
-  },
-  directionsText: {
-    fontWeight: '700',
-    marginBottom: 20,
-    marginLeft: 20,
-  },
-  atExitText: {
-    marginBottom: 20,
-    marginLeft: 30,
-  },
-  bottomDividerListItem: {
-    marginHorizontal: 10,
-    marginTop: 0,
-    marginBottom: 10,
-    paddingTop: 0,
   },
 })
