@@ -1,10 +1,10 @@
-interface Station {
+export interface Station {
   id: number
   name: string
   imgSrc: string
 }
 
-interface MetroExit {
+export interface MetroExit {
   id: number
   name: string
   stationId: number
@@ -13,24 +13,24 @@ interface MetroExit {
   imgSrc: any
 }
 
-interface TravelMode {
+export interface TravelMode {
   id: number
   name: string
 }
 
-interface Avoid {
+export interface Avoid {
   id: number
   name: string
 }
 
-interface InitialRegion {
+export interface InitialRegion {
   latitude: number
   longitude: number
   latitudeDelta: number
   longitudeDelta: number
 }
 
-interface DirectionData {
+export interface DirectionData {
   startLocation: string
   endLocation: string
   startLocationCoords: Location1
@@ -40,7 +40,7 @@ interface DirectionData {
   preferredExit: string
 }
 
-interface DirectionStep {
+export interface DirectionStep {
   distance: Distance
   duration: Duration
   start_location: Location1
@@ -49,23 +49,23 @@ interface DirectionStep {
   travel_mode: string
 }
 
-interface Distance {
+export interface Distance {
   text: string
   value: string
 }
 
-interface Duration {
+export interface Duration {
   text: string
   value: number
 }
 
-interface Location1 {
+export interface Location1 {
   lat: number
   lng: number
 }
 
 /*let tmp: DirectionStep[] = [ {
-    distance: {text: '', value: ''}, 
+    distance: {text: '', value: ''},
     duration: {text: '', value: ''},
     start_location: {lat: 0, lng: 0},
     end_location: {lat: 0, lng: 0},

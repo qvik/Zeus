@@ -11,7 +11,7 @@ export const DirectionsDrawer = (props: {
 }) => {
   console.log(`items in DirectionsDrawer is: ${JSON.stringify(props.items)}`)
   const [isOpen, setIsOpen] = useState(false)
-  let prefExit = props.preferredExit.split(' ')[0]
+  const prefExit = props.preferredExit.split(' ')[0]
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value)

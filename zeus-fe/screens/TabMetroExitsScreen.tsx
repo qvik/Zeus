@@ -46,7 +46,7 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
     setSelectedStation(pickedStation)
     const tmp: Station = stationsList.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
     console.log(`tmp is: ${JSON.stringify(tmp)}`)
-    let stationExitsList = metroExitsList.filter((it) => it.stationId === tmp.id)
+    const stationExitsList = metroExitsList.filter((it) => it.stationId === tmp.id)
     //console.log(`stationExitsList is: ${JSON.stringify(stationExitsList)}`)
     setExitsForSelectedStation(stationExitsList)
   }

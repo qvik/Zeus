@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts ."
+    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts,.tsx ."
   },
   "jest": {
     "preset": "jest-expo"
