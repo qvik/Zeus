@@ -10,7 +10,7 @@ interface PreviousSearchResultProps {
 const PreviousSearchResult = ({ destination }: PreviousSearchResultProps) => {
   return (
     <View style={styles.container}>
-      <Text>{destination}</Text>
+      <Text style={styles.searchResultText}>{destination}</Text>
       <MagnifyingGlass style={styles.searchIcon} />
     </View>
   )
@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
   searchIcon: {
     height: 20,
     width: 20,
-    fill: Colors.black.black30Percent,
+    fill: Colors.black.black50Percent,
+  },
+  searchResultText: {
+    opacity: 0.6,
   },
 })
 
