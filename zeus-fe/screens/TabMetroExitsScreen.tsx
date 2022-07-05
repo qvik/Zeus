@@ -15,6 +15,7 @@ import { avoids, initialRegion, metroExits, stations, travelModes } from '../uti
 
 export const TabMetroExitsScreen = () => {
   const [selectedDestination, setSelectedDestination] = useState<string>('')
+  const [hidePreviousDestinations, setHidePreviousDestinations] = useState<boolean>(false)
   const [avoid] = useState<string>(avoids[0].name + '|' + avoids[1].name + '|' + avoids[2].name)
   const [preferredExit, setPreferredExit] = useState<string>('')
   const [destination, setDestination] = useState({ latitude: 0, longitude: 0 })
@@ -130,8 +131,17 @@ export const TabMetroExitsScreen = () => {
         </View>
       </View>
       {searchHistory.map((item) => {
-        if (selectedDestination && item.includes(selectedDestination)) {
-          return <PreviousSearchResult key={item} destination={item} onPress={() => setSelectedDestination(item)} />
+        if (selectedDestination && item.includes(selectedDestination) && !hidePreviousDestinations) {
+          return (
+            <PreviousSearchResult
+              key={item}
+              destination={item}
+              onPress={() => {
+                setSelectedDestination(item)
+                setHidePreviousDestinations(true)
+              }}
+            />
+          )
         }
       })}
       <MapView style={styles.map} initialRegion={initialRegion}>
