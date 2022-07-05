@@ -1,7 +1,7 @@
-import { getDefaultConfig } from 'expo/metro-config'
+const { getDefaultConfig } = require('expo/metro-config')
 
 // eslint-disable-next-line no-undef
-export default (() => {
+module.exports = (() => {
   const config = getDefaultConfig(__dirname)
 
   const { transformer, resolver } = config
