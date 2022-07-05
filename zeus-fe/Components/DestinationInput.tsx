@@ -1,24 +1,23 @@
 import React from 'react'
 import { StyleSheet, TextInput, Text, View, Pressable, GestureResponderEvent } from 'react-native'
+
 export const DestinationInput = (props: {
   selectedDestination: string | undefined
   setSelectedDestination: (arg0: any) => void
   handleSubmit: ((event: GestureResponderEvent) => void) | null | undefined
 }) => {
   return (
-    <>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={props.selectedDestination}
-          onChangeText={(value: any) => props.setSelectedDestination(value)}
-          placeholder="Input destination"
-        />
-        <Pressable style={styles.button} onPress={props.handleSubmit}>
-          <Text style={styles.buttonText}> Submit </Text>
-        </Pressable>
-      </View>
-    </>
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.input}
+        value={props.selectedDestination}
+        onChangeText={(value: any) => props.setSelectedDestination(value)}
+        placeholder="Input destination"
+      />
+      <Pressable style={styles.button} onPress={props.handleSubmit}>
+        <Text style={styles.buttonText}> Submit </Text>
+      </Pressable>
+    </View>
   )
 }
 

@@ -4,7 +4,7 @@ import { persistReducer, persistStore } from 'redux-persist'
 import ExpoFileSystemStorage from 'redux-persist-expo-filesystem'
 import thunk from 'redux-thunk'
 import updateDirectionData from './DirectionsSlice'
-import addLocation from './searchLocationsSlice'
+import addLocation from './previousSearchesSlice'
 
 const reducers = combineReducers({
   previousSearches: addLocation,
@@ -23,5 +23,8 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
 export const persistor = persistStore(store)

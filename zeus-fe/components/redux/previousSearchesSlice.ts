@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import type { RootState } from './store'
 
 const initialState: string[] = []
 
@@ -14,6 +15,6 @@ export const searchLocationsSlice = createSlice({
 
 export const { addLocation } = searchLocationsSlice.actions
 
-export const previousSearches = (state: { previousSearches: string[] }) => state.previousSearches
+export const previousSearches = (state: RootState) => state.previousSearches
 
 export default searchLocationsSlice.reducer
