@@ -1,17 +1,23 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { GestureResponderEvent, StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import Colors from '../constants/Colors'
 import MagnifyingGlass from '../screens/images/magnifying-glass-solid.svg'
 
 interface PreviousSearchResultProps {
   destination: string
+  onPress: ((event: GestureResponderEvent) => void) & (() => void)
 }
 
-const PreviousSearchResult = ({ destination }: PreviousSearchResultProps) => {
+const PreviousSearchResult = ({ destination, onPress }: PreviousSearchResultProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.searchResultText}>{destination}</Text>
-      <MagnifyingGlass style={styles.searchIcon} />
+      <TouchableOpacity onPress={onPress}>
+        <View style={styles.textContainer}>
+          <Text style={styles.searchResultText}>{destination}</Text>
+          <MagnifyingGlass style={styles.searchIcon} />
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -22,13 +28,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.background,
     height: 50,
     width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.black.black30Percent,
+  },
+  textContainer: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 15,
-    borderBottomColor: Colors.black.black30Percent,
-    borderBottomWidth: 1,
   },
   searchIcon: {
     height: 20,

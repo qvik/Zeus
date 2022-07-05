@@ -131,7 +131,7 @@ export const TabMetroExitsScreen = () => {
       </View>
       {searchHistory.map((item) => {
         if (selectedDestination && item.includes(selectedDestination)) {
-          return <PreviousSearchResult key={item} destination={item} />
+          return <PreviousSearchResult key={item} destination={item} onPress={() => setSelectedDestination(item)} />
         }
       })}
       <MapView style={styles.map} initialRegion={initialRegion}>
