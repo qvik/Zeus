@@ -6,7 +6,8 @@ import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from '../components/DestinationInput'
 import { DirectionsDrawer } from '../components/DIrectionsDrawer'
 import { updateDirectionData } from '../components/redux/DirectionsSlice'
-import { useAppDispatch } from '../components/redux/hooks'
+import { useAppDispatch, useAppSelector } from '../components/redux/hooks'
+import { addLocation, previousSearches } from '../components/redux/searchLocationsSlice'
 import { StationPicker } from '../components/StationPicker'
 import Logo from '../screens/images/logo.svg'
 import { RootTabScreenProps } from '../types'
@@ -33,25 +34,28 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
 
   useEffect(() => {
     //console.log(`stations is: ${JSON.stringify(stationsList)}`)
-    console.log(`selectedStation is: ${selectedStation}`)
-    console.log(`exitsForSelectedStation is: ${JSON.stringify(exitsForSelectedStation)}`)
+    // console.log(`selectedStation is: ${selectedStation}`)
+    // console.log(`exitsForSelectedStation is: ${JSON.stringify(exitsForSelectedStation)}`)
   }, [selectedStation])
 
   useEffect(() => {
-    console.log(`directions: is: ${JSON.stringify(directions)}`)
+    // console.log(`directions: is: ${JSON.stringify(directions)}`)
   }, [directions])
 
   const handleSelectedStation = (pickedStation: string) => {
     //console.log(`pickedStation is: ${pickedStation}`)
     setSelectedStation(pickedStation)
     const tmp: Station = stationsList.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
-    console.log(`tmp is: ${JSON.stringify(tmp)}`)
+    // console.log(`tmp is: ${JSON.stringify(tmp)}`)
     const stationExitsList = metroExitsList.filter((it) => it.stationId === tmp.id)
     //console.log(`stationExitsList is: ${JSON.stringify(stationExitsList)}`)
     setExitsForSelectedStation(stationExitsList)
   }
+  const lol = useAppSelector(previousSearches)
+  const lol2 = useAppSelector(addLocation)
 
   const handleSubmit = async () => {
+    console.log('ÄÄYYYYYYY', lol, lol2)
     let urls: string[] = []
     exitsForSelectedStation?.forEach((it) => {
       urls = [
@@ -59,9 +63,9 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
         `${GOOGLE_API_BASE_URL}origin=${it.latitude},${it.longitude}&destination=${selectedDestination}&mode=${travelModes[1].name}&avoid=${avoid}&key=${GOOGLE_API_KEY}`,
       ]
     })
-    console.log('')
-    console.log(`urls is: ${urls}`)
-    console.log('')
+    // console.log('')
+    // console.log(`urls is: ${urls}`)
+    // console.log('')
 
     try {
       const response = await Promise.all(
@@ -70,8 +74,9 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
           return resp.json()
         }),
       )
-      //console.log(`response: is: ${JSON.stringify(response)}`)
+      // console.log(`response: is: ${JSON.stringify(response)}`)
       if (response[0].status === 'NOT_FOUND') return setError('Address not found! Please input a valid address.')
+      dispatch(addLocation(selectedDestination))
 
       let tempValue = 13600000
       for (let i = 0; i < response.length; i++) {

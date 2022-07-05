@@ -14,7 +14,7 @@ export default function ModalScreen() {
   const [directionData, setDirectionData] = useState(useAppSelector(selectCurrentDirectionData))
 
   useEffect(() => {
-    console.log(`directionData in modalScreen is: ${JSON.stringify(directionData)}`)
+    // console.log(`directionData in modalScreen is: ${JSON.stringify(directionData)}`)
   }, [directionData])
 
   const toggleOpen = useCallback(() => {
@@ -25,21 +25,21 @@ export default function ModalScreen() {
   function handleHelpPress() {
     let startLocation = ''
     startLocation = directionData.startLocation.split(' ')[0]
-    console.log(`startLocation.split(' ') is: ${startLocation}`)
+    // console.log(`startLocation.split(' ') is: ${startLocation}`)
     startLocation = startLocation.split(',')[0]
-    console.log(`startLocation.split(',') is: ${startLocation}`)
+    // console.log(`startLocation.split(',') is: ${startLocation}`)
     let endLocation = ''
     endLocation = directionData.endLocation.split(' ')[0]
     endLocation = endLocation.split(',')[0]
 
-    console.log(`startLocation is: ${startLocation}`)
-    console.log(`endLocation is: ${endLocation}`)
+    // console.log(`startLocation is: ${startLocation}`)
+    // console.log(`endLocation is: ${endLocation}`)
 
     const urlString = `https://www.google.com/maps/dir/${startLocation}+stockholm/@${directionData.startLocationCoords.lat},${directionData.startLocationCoords.lng},15z/${endLocation}/@${directionData.endLocationCoords.lat},${directionData.endLocationCoords.lng},15z`
-    console.log(``)
-    console.log(``)
-    console.log(`urlString is: ${urlString}`)
-    console.log(``)
+    // console.log(``)
+    // console.log(``)
+    // console.log(`urlString is: ${urlString}`)
+    // console.log(``)
 
     //'https://www.google.com/maps/dir/Malmskillnadsgatan/@59.33454740000001,18.065731,15z/,Riddarholmen,/@59.33454740000001,18.065731,15z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x465f9d68bc94411b:0x4fa50d706c120441!2m2!1d18.0592204!2d59.340353!1m5!1m1!1s0x465f77e197edb25f:0xeb8ea51073e21688!2m2!1d18.0635304!2d59.324902!3e2'
     WebBrowser.openBrowserAsync(encodeURI(urlString)).catch((err) => console.log(err))

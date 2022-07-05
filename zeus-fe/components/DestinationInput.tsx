@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, TextInput, Text, View, Pressable, GestureResponderEvent } from 'react-native'
-//import { Text } from '../components/Themed';
 export const DestinationInput = (props: {
   selectedDestination: string | undefined
   setSelectedDestination: (arg0: any) => void

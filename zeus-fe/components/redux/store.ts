@@ -1,12 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { persistStore, persistReducer } from 'redux-persist'
-import directionsDataSliceReducer from './DirectionsSlice'
+import { combineReducers } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist'
+import ExpoFileSystemStorage from 'redux-persist-expo-filesystem'
+import thunk from 'redux-thunk'
+import updateDirectionData from './DirectionsSlice'
+import addLocation from './searchLocationsSlice'
 
-export const store = configureStore({
-  reducer: {
-    directionData: directionsDataSliceReducer,
-  },
+const reducers = combineReducers({
+  previousSearches: addLocation,
+  selectCurrentDirectionData: updateDirectionData,
 })
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+const persistConfig = {
+  key: 'root',
+  storage: ExpoFileSystemStorage,
+  whitelist: ['previousSearches'],
+}
+const persistedReducer = persistReducer(persistConfig, reducers)
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: [thunk],
+})
+
+export const persistor = persistStore(store)
