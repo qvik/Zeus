@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, Text, View, Pressable, GestureResponderEvent } f
 export const DestinationInput = (props: {
   selectedDestination: string | undefined
   setSelectedDestination: (arg0: any) => void
-  handleSubmit: ((event: GestureResponderEvent) => void) | null | undefined
+  handleSubmit: (event: GestureResponderEvent) => void | null | undefined
 }) => {
   return (
     <>
