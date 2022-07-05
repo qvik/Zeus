@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
-import React, { useState, useRef } from 'react'
-import { View, Text, Dimensions, StyleSheet, ScrollView, Image } from 'react-native'
-const { width } = Dimensions.get('window')
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import React, { useRef } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export const StationPicker = (props: {
   selectedStation: string | undefined

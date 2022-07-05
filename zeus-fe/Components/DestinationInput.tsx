@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TextInput, Text, View, Pressable, GestureResponderEvent } from 'react-native'
+import { GestureResponderEvent, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 
 export const DestinationInput = (props: {
   selectedDestination: string | undefined

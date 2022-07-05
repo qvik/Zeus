@@ -5,15 +5,15 @@ import MapView from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from '../components/DestinationInput'
 import { DirectionsDrawer } from '../components/DIrectionsDrawer'
+import PreviousSearchResult from '../components/PreviousSearchResult'
 import { updateDirectionData } from '../components/redux/DirectionsSlice'
 import { useAppDispatch, useAppSelector } from '../components/redux/hooks'
-import { addLocation, previousSearches } from '../components/redux/searchLocationsSlice'
+import { addLocation, previousSearches } from '../components/redux/previousSearchesSlice'
 import { StationPicker } from '../components/StationPicker'
 import Logo from '../screens/images/logo.svg'
-import { RootTabScreenProps } from '../types'
 import { avoids, initialRegion, metroExits, stations, travelModes } from '../utils/MetroData'
 
-export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetroExits'>) => {
+export const TabMetroExitsScreen = () => {
   const [selectedDestination, setSelectedDestination] = useState<string>('')
   const [avoid] = useState<string>(avoids[0].name + '|' + avoids[1].name + '|' + avoids[2].name)
   const [preferredExit, setPreferredExit] = useState<string>('')
@@ -23,13 +23,11 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
     longitude: 0,
   })
   const [directions, setDirections] = useState<DirectionStep[]>()
-  const [stationsList, setStationsList] = useState<Station[]>(stations)
-  const [metroExitsList, setMetroExitisList] = useState<MetroExit[]>(metroExits)
   const [selectedStation, setSelectedStation] = useState<string>('Pick a station')
   const [exitsForSelectedStation, setExitsForSelectedStation] = useState<MetroExit[]>()
-  const [initialRegionObj, setInitialRegionObj] = useState<InitialRegion>(initialRegion)
   const [error, setError] = useState('')
 
+  const searchHistory = useAppSelector(previousSearches)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -45,17 +43,14 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
   const handleSelectedStation = (pickedStation: string) => {
     //console.log(`pickedStation is: ${pickedStation}`)
     setSelectedStation(pickedStation)
-    const tmp: Station = stationsList.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
+    const tmp: Station = stations.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
     // console.log(`tmp is: ${JSON.stringify(tmp)}`)
-    const stationExitsList = metroExitsList.filter((it) => it.stationId === tmp.id)
+    const stationExitsList = metroExits.filter((it) => it.stationId === tmp.id)
     //console.log(`stationExitsList is: ${JSON.stringify(stationExitsList)}`)
     setExitsForSelectedStation(stationExitsList)
   }
-  const lol = useAppSelector(previousSearches)
-  const lol2 = useAppSelector(addLocation)
 
   const handleSubmit = async () => {
-    console.log('ÄÄYYYYYYY', lol, lol2)
     let urls: string[] = []
     exitsForSelectedStation?.forEach((it) => {
       urls = [
@@ -122,7 +117,7 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
         <View style={{ width: '90%', marginTop: 3 }}>
           <StationPicker
             selectedStation={selectedStation}
-            stationsList={stationsList}
+            stationsList={stations}
             handleSelectedStation={handleSelectedStation}
           />
           <View style={{}}>
@@ -134,7 +129,12 @@ export const TabMetroExitsScreen = ({ navigation }: RootTabScreenProps<'TabMetro
           </View>
         </View>
       </View>
-      <MapView style={styles.map} initialRegion={initialRegionObj}>
+      {searchHistory.map((item) => {
+        if (selectedDestination && item.includes(selectedDestination)) {
+          return <PreviousSearchResult key={item} destination={item} />
+        }
+      })}
+      <MapView style={styles.map} initialRegion={initialRegion}>
         <MapViewDirections mode="WALKING" origin={startLocation} destination={destination} apikey={GOOGLE_API_KEY} />
       </MapView>
       {preferredExit ? (
