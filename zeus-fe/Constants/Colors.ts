@@ -16,4 +16,8 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  black: {
+    black30Percent: 'hsla(360, 100%, 0%, 0.30)',
+    black50Percent: 'hsla(360, 100%, 0%, 0.50)',
+  },
 }
