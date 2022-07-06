@@ -1,25 +1,22 @@
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import useCachedResources from './hooks/useCachedResources'
-import useColorScheme from './hooks/useColorScheme'
-import Navigation from './navigation/Navigation'
-import { store } from './Components/Redux/Store'
+import { TabMetroExitsScreen } from './screens/TabMetroExitsScreen'
+import { store, persistor } from './components/redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
-
-//import { ColorSchemeName, useColorScheme } from 'react-native';
-//useColorScheme gets your light or dark theme from your device, see Appearance module
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
-  const colorScheme = useColorScheme()
 
   if (!isLoadingComplete) {
     return null
   } else {
     return (
       <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}></PersistGate>
         <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
+          <TabMetroExitsScreen />
           <StatusBar />
         </SafeAreaProvider>
       </Provider>

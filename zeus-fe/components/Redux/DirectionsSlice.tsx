@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './Store'
+import type { RootState } from './store'
 
 const initialState: DirectionData = {
   startLocation: '',
@@ -20,29 +20,10 @@ const initialState: DirectionData = {
   preferredExit: '',
 }
 
-/*const initialState: DirectionStep[] = [ 
-    {
-        distance: {text: '', value: ''}, 
-        duration: {text: '', value: ''},
-        start_location: {lat: 0, lng: 0},
-        end_location: {lat: 0, lng: 0},
-        html_instructions: '',
-        travel_mode: '' 
-    }
-]*/
 const directionsDataSlice = createSlice({
   name: 'directionsX',
   initialState,
-  /*initialState:[ 
-        {
-            distance: {text: '', value: ''}, 
-            duration: {text: '', value: ''},
-            start_location: {lat: 0, lng: 0},
-            end_location: {lat: 0, lng: 0},
-            html_instructions: '',
-            travel_mode: '' 
-        }]*/ reducers: {
-    //updateDirections: (state, action: PayloadAction<DirectionStep[]>) => {
+  reducers: {
     updateDirectionData: (state, action: PayloadAction<DirectionData>) => {
       return action.payload
     },

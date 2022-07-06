@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native'
-
-import EditScreenInfo from '../Components/EditScreenInfo'
-import { Text, View } from '../Components/Themed'
+import EditScreenInfo from '../components/EditScreenInfo'
+import { Text, View } from '../components/Themed'
 
 export const TabSettingsScreen = () => {
   return (

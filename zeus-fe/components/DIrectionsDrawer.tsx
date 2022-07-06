@@ -9,9 +9,9 @@ export const DirectionsDrawer = (props: {
   items: DirectionStep[] | undefined
   preferredExit: string
 }) => {
-  console.log(`items in DirectionsDrawer is: ${JSON.stringify(props.items)}`)
+  // console.log(`items in DirectionsDrawer is: ${JSON.stringify(props.items)}`)
   const [isOpen, setIsOpen] = useState(false)
-  let prefExit = props.preferredExit.split(' ')[0]
+  const prefExit = props.preferredExit.split(' ')[0]
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value)
@@ -29,7 +29,7 @@ export const DirectionsDrawer = (props: {
         <ScrollView showsVerticalScrollIndicator={true} style={{ width: '100%' }}>
           <Text style={{ marginBottom: 20, marginTop: 5, fontWeight: 'bold' }}>Go to Metro Exit: {prefExit}</Text>
           {props.items?.map((step: any, index: number) => {
-            console.log(`step.html_instructions is: ${step.html_instructions}`)
+            // console.log(`step.html_instructions is: ${step.html_instructions}`)
             let replacedHtmlInstructions = step.html_instructions.replaceAll('<b>', '')
             replacedHtmlInstructions = replacedHtmlInstructions.replaceAll('</b>', '')
             //let replacedHtmlInstructions = step.html_instructions.replaceAll('\n', '')

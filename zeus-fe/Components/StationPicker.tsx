@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
-import React, { useState, useRef } from 'react'
-import { View, Text, Dimensions, StyleSheet, ScrollView, Image } from 'react-native'
-const { width } = Dimensions.get('window')
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import React, { useRef } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export const StationPicker = (props: {
   selectedStation: string | undefined
@@ -24,8 +23,8 @@ export const StationPicker = (props: {
           //defaultValueByIndex={1}
           // defaultValue={'pick a station'}
           onSelect={(selectedItem, index) => {
-            console.log(`selectedItem is: ${selectedItem}`)
-            console.log(`selectedItem.name is: ${selectedItem.name}`)
+            // console.log(`selectedItem is: ${selectedItem}`)
+            // console.log(`selectedItem.name is: ${selectedItem.name}`)
             props.handleSelectedStation(selectedItem.name)
             dropdownRef.current
           }}
