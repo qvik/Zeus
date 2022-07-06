@@ -8,7 +8,9 @@ export const searchLocationsSlice = createSlice({
   initialState,
   reducers: {
     addLocation: (state, action: PayloadAction<string>) => {
-      state.unshift(action.payload)
+      if (!state.includes(action.payload)) {
+        state.unshift(action.payload)
+      }
     },
   },
 })

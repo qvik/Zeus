@@ -32,22 +32,15 @@ export const TabMetroExitsScreen = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    //console.log(`stations is: ${JSON.stringify(stationsList)}`)
-    // console.log(`selectedStation is: ${selectedStation}`)
-    // console.log(`exitsForSelectedStation is: ${JSON.stringify(exitsForSelectedStation)}`)
-  }, [selectedStation])
-
-  useEffect(() => {
-    // console.log(`directions: is: ${JSON.stringify(directions)}`)
-  }, [directions])
+    if (!selectedDestination) {
+      setHidePreviousDestinations(false)
+    }
+  }, [selectedDestination])
 
   const handleSelectedStation = (pickedStation: string) => {
-    //console.log(`pickedStation is: ${pickedStation}`)
     setSelectedStation(pickedStation)
     const tmp: Station = stations.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
-    // console.log(`tmp is: ${JSON.stringify(tmp)}`)
     const stationExitsList = metroExits.filter((it) => it.stationId === tmp.id)
-    //console.log(`stationExitsList is: ${JSON.stringify(stationExitsList)}`)
     setExitsForSelectedStation(stationExitsList)
   }
 
@@ -59,9 +52,6 @@ export const TabMetroExitsScreen = () => {
         `${GOOGLE_API_BASE_URL}origin=${it.latitude},${it.longitude}&destination=${selectedDestination}&mode=${travelModes[1].name}&avoid=${avoid}&key=${GOOGLE_API_KEY}`,
       ]
     })
-    // console.log('')
-    // console.log(`urls is: ${urls}`)
-    // console.log('')
 
     try {
       const response = await Promise.all(
@@ -73,6 +63,7 @@ export const TabMetroExitsScreen = () => {
       // console.log(`response: is: ${JSON.stringify(response)}`)
       if (response[0].status === 'NOT_FOUND') return setError('Address not found! Please input a valid address.')
       dispatch(addLocation(selectedDestination))
+      setHidePreviousDestinations(true)
 
       let tempValue = 13600000
       for (let i = 0; i < response.length; i++) {

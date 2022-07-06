@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "zeus-fe-alex",
-    "slug": "zeus-fe-alex",
+    "name": "zeus-fe",
+    "slug": "zeus-fe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
