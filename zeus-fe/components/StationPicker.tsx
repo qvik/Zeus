@@ -3,7 +3,6 @@ import React, { useRef } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { Station } from 'Types/ObjectTypes'
 
 export const StationPicker = (props: {
   selectedStation: string | undefined
