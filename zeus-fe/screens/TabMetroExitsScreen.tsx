@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import MapView from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
-import { DestinationInput } from '../components/DestinationInput'
-import { DirectionsDrawer } from '../components/DIrectionsDrawer'
+import { DestinationInput } from "../components/DestinationInput"
+import { DirectionsDrawer } from '../components/DirectionsDrawer'
 import PreviousSearchResult from '../components/PreviousSearchResult'
 import { updateDirectionData } from '../components/redux/DirectionsSlice'
 import { useAppDispatch, useAppSelector } from '../components/redux/hooks'
@@ -12,7 +12,7 @@ import { addLocation, previousSearches } from '../components/redux/previousSearc
 import { StationPicker } from '../components/StationPicker'
 import Logo from '../screens/images/logo.svg'
 import { avoids, initialRegion, metroExits, stations, travelModes } from '../utils/MetroData'
-
+import { DirectionStep, MetroExit, Station } from 'Types/ObjectTypes'
 export const TabMetroExitsScreen = () => {
   const [selectedDestination, setSelectedDestination] = useState<string>('')
   const [hidePreviousDestinations, setHidePreviousDestinations] = useState<boolean>(false)
