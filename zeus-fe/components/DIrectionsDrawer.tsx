@@ -1,10 +1,8 @@
-
 import React, { useState, useCallback } from 'react'
 import { View, FlatList, LayoutAnimation, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import HTMLView from 'react-native-htmlview'
 import { Text } from './Themed'
 import { StationPicker } from './StationPicker'
-import { DirectionStep } from 'Types/ObjectTypes'
 
 export const DirectionsDrawer = (props: {
   title: string
