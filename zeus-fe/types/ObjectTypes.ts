@@ -1,16 +1,18 @@
 export interface Station {
-  id: number
-  name: string
-  imgSrc: string
+  id: number,
+  name: string,
+  imgSrc: string,
+  latitude: number,
+  longitude: number, 
 }
 
 export interface MetroExit {
-  id: number
-  name: string
-  stationId: number
-  latitude: string
-  longitude: string
-  imgSrc: any
+  id: number,
+  name: string,
+  stationId: number,
+  latitude: number,
+  longitude: number,
+  imgSrc: any,
 }
 
 export interface TravelMode {
@@ -23,11 +25,24 @@ export interface Avoid {
   name: string
 }
 
-export interface InitialRegion {
-  latitude: number
-  longitude: number
-  latitudeDelta: number
-  longitudeDelta: number
+export interface InitialStationData {
+  latitude: number,
+  longitude: number,
+  latitudeDelta: number,
+  longitudeDelta: number,
+  stationData: Station,
+}
+export interface InitialMetroExitData {
+  latitude: number,
+  longitude: number,
+  latitudeDelta: number,
+  longitudeDelta: number,
+  metroExitData: MetroExit,
+}
+
+export interface ZoomInZoomOutDelta {
+  latitudeDelta: number,
+  longitudeDelta: number,
 }
 
 export interface DirectionData {
@@ -62,6 +77,11 @@ export interface Duration {
 export interface Location1 {
   lat: number
   lng: number
+}
+
+export interface Coords { 
+  latitude: number,
+  longitude: number
 }
 
 /*let tmp: DirectionStep[] = [ {

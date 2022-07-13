@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from './store'
-import { DirectionData } from 'Types/ObjectTypes'
+import { DirectionData } from 'types/ObjectTypes'
 
 const initialState: DirectionData = {
   startLocation: '',
