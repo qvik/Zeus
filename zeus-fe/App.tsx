@@ -5,10 +5,12 @@ import { TabMetroExitsScreen } from './screens/TabMetroExitsScreen'
 import { store, persistor } from './components/redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
+import Colors  from './constants/Colors'
+import { View, Text } from './components/Themed'
+
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
-
   if (!isLoadingComplete) {
     return null
   } else {
@@ -17,7 +19,7 @@ export default function App() {
         <PersistGate loading={null} persistor={persistor}></PersistGate>
         <SafeAreaProvider>
           <TabMetroExitsScreen />
-          <StatusBar />
+            <StatusBar style="dark" />
         </SafeAreaProvider>
       </Provider>
     )

@@ -1,5 +1,6 @@
 import React from 'react'
 import { GestureResponderEvent, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import Foundation from 'react-native-vector-icons/Foundation'
 
 export const DestinationInput = (props: {
   selectedDestination: string | undefined
@@ -15,7 +16,7 @@ export const DestinationInput = (props: {
         placeholder="Input destination"
       />
       <Pressable style={styles.button} onPress={props.handleSubmit}>
-        <Text style={styles.buttonText}> Submit </Text>
+        <Foundation name="magnifying-glass" style={{marginLeft: 2, marginRight: 4, color: 'black'}} size={18}/>
       </Pressable>
     </View>
   )
@@ -24,31 +25,27 @@ export const DestinationInput = (props: {
 const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
-    marginTop: 2,
+    marginTop: 13,
   },
   input: {
     backgroundColor: '#fff',
     padding: 10,
     marginBottom: 10,
     marginTop: 1,
-    marginRight: 5,
-    width: '54%',
+    marginRight: 0,
+    width: '65%',
     height: 33,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: 'grey',
   },
   button: {
     height: 33,
-    width: 54,
+    width: 25,
     marginTop: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'grey',
+    backgroundColor: 'white'
   },
   buttonText: {
     fontWeight: '700',
     fontSize: 12,
-    color: 'blue',
+    color: 'white',
   },
 })

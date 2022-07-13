@@ -27,7 +27,9 @@ export default function useCachedResources() {
         await Font.loadAsync({
           ...FontAwesome.font,
           'poppins-regular': require('../assets/fonts/Poppins-Regular.ttf'),
-          'poppins-bold': require('../assets/fonts/Poppins_700Bold.ttf'),
+          'poppins_700Bold': require('../assets/fonts/Poppins_700Bold.ttf'),
+          'poppins_extraLight': require('../assets/fonts/Poppins-ExtraLight.ttf'),
+          'poppins_medium': require('../assets/fonts/Poppins-Medium.ttf'),
         })
         setDefaultFonts()
       } catch (e) {
