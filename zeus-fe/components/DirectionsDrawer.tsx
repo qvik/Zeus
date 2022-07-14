@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback } from 'react'
-import { View, FlatList, LayoutAnimation, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
+import { View, LayoutAnimation, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import { Text } from './Themed'
 import { DirectionData } from 'types/ObjectTypes'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
