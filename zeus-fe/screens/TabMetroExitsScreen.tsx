@@ -184,7 +184,8 @@ export const TabMetroExitsScreen = () => {
             origin={startLocation}
             destination={destinationCoords}
             apikey={GOOGLE_API_KEY}
-            lineDashPattern={[0]}
+            //lineDashPattern={[2, 0, 2]}  <-- patterned line
+            lineDashPattern={[0]}  //<-- solidline
             strokeWidth={1} 
             strokeColor={'black'}
           />
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
     width: 80,
     marginRight: 10,
     marginTop: 20,
-    marginLeft: 20,
+    marginLeft: 15,
     height: 70,
     resizeMode: 'cover',
     marginBottom: 20,
