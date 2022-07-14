@@ -9,7 +9,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { DirectionStep } from 'types/ObjectTypes'
 
 export const DirectionsDrawer = (props: {title: string, data: DirectionData | undefined }) => {
-  console.log(`data in DirectionsDrawer is: ${JSON.stringify(props.data)}`)
+  //console.log(`data in DirectionsDrawer is: ${JSON.stringify(props.data)}`)
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleOpen = useCallback(() => {
@@ -26,6 +26,7 @@ export const DirectionsDrawer = (props: {title: string, data: DirectionData | un
     WebBrowser.openBrowserAsync(encodeURI(urlString))
     .catch(err => console.log(err))
   }
+
 
   return (
     <>
@@ -114,7 +115,6 @@ export const DirectionsDrawer = (props: {title: string, data: DirectionData | un
                   <Text style={styles.arriveAtDurationText}>in approximately: {props.data?.duration.text} </Text>
             </View>
         </View>
-
       </View>
     </>
   )
