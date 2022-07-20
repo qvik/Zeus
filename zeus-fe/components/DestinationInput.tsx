@@ -1,6 +1,7 @@
 import React from 'react'
-import { GestureResponderEvent, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { GestureResponderEvent, Pressable, StyleSheet, TouchableOpacity, TextInput, View } from 'react-native'
 import Foundation from 'react-native-vector-icons/Foundation'
+import FontAwsome from 'react-native-vector-icons/FontAwesome'
 
 export const DestinationInput = (props: {
   selectedDestination: string | undefined
@@ -15,9 +16,13 @@ export const DestinationInput = (props: {
         onChangeText={(value: any) => props.setSelectedDestination(value)}
         placeholder="Input destination"
       />
+      <Pressable style={styles.button} onPress={() => props.setSelectedDestination('')}>
+        <FontAwsome name="remove" style={{marginLeft: 2, marginRight: 4, color: 'black'}} size={18}/>
+      </Pressable>
       <Pressable style={styles.button} onPress={props.handleSubmit}>
         <Foundation name="magnifying-glass" style={{marginLeft: 2, marginRight: 4, color: 'black'}} size={18}/>
       </Pressable>
+
     </View>
   )
 }
@@ -33,7 +38,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 1,
     marginRight: 0,
-    width: '65%',
+    width: '60%',
     height: 33,
   },
   button: {

@@ -1,6 +1,6 @@
 import { GOOGLE_API_BASE_URL, GOOGLE_API_KEY } from '@env'
 import { SetStateAction, useEffect, useState } from 'react'
-import { StyleSheet, View, SafeAreaView } from 'react-native'
+import { StyleSheet, View, SafeAreaView, Pressable } from 'react-native'
 import MapView, { Marker, MapEvent } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 import { DestinationInput } from "../components/DestinationInput"
@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../components/redux/hooks'
 import { addLocation, previousSearches } from '../components/redux/previousSearchesSlice'
 import { StationPicker } from '../components/StationPicker'
 import Logo from '../screens/images/logo.svg'
+import { FontAwesome } from "@expo/vector-icons";
 import { avoids, initialStationRegion, initialMetroExitRegion, metroExits, stations, travelModes, initialZoomInZoomOutDelta } from '../utils/MetroData'
 import { InitialStationData, InitialMetroExitData, DirectionStep, MetroExit, Station, Coords, ZoomInZoomOutDelta, DirectionData } from '../types/ObjectTypes'
 import { getDestinationCoords, calculateDistanceAtoB, getDirectionSteps } from './TabMetroExitUtils/utils'
@@ -42,6 +43,11 @@ export const TabMetroExitsScreen = () => {
       setHidePreviousDestinations(false)
     }
   }, [selectedDestination])
+
+  useEffect(() => {
+    console.log(`startLocation is: {${JSON.stringify(startLocation)}}`)
+    console.log(`destination is: {${JSON.stringify(destinationCoords)}}`)
+  }, [startLocation, destinationCoords])
 
   const handleSelectedStation = (pickedStation: string) => {
     setSelectedStation(pickedStation)
@@ -107,13 +113,13 @@ export const TabMetroExitsScreen = () => {
     setExitsForSelectedStation(tmpMetroExitList.filter((it) => it.id !== closestExitData.id))
 
     //set below for the MapViewDirections
-    setStartLocation({latitude: closestExitData.latitude,longitude: closestExitData.longitude})
-    setDestinationCoords({latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
+    setStartLocation({...startLocation, latitude: closestExitData.latitude,longitude: closestExitData.longitude})
+    setDestinationCoords({...destinationCoords, latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
 
     //set the directions data
     const directionsData = await getDirectionSteps({latitude: closestExitData.latitude,
       longitude: closestExitData.longitude}, {latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
-    console.log(`handleSubmit directionStepsData is: ${JSON.stringify(directionsData)}`)
+    //console.log(`handleSubmit directionStepsData is: ${JSON.stringify(directionsData)}`)
     
     dispatch(updateDirectionData(directionsData)) //not used now.
     setDirections(directionsData) //used in drawer to display directions
@@ -125,11 +131,15 @@ export const TabMetroExitsScreen = () => {
 
   }
   const mapZoomIn = () => {
+    console.log(`mapZoomIn`)
     setZoomDeltaObj({ ...zoomDeltaObj, latitudeDelta: zoomDeltaObj.latitudeDelta / 1.5, longitudeDelta: zoomDeltaObj.longitudeDelta / 1.5 })
+    setStationRegionObj({ ...stationRegionObj, latitudeDelta: stationRegionObj.latitudeDelta / 1.5, longitudeDelta: stationRegionObj.longitudeDelta / 1.5 })
   }
 
   const mapZoomOut = () => {
+    console.log(`mapZoomOut`)
     setZoomDeltaObj( { ...zoomDeltaObj, latitudeDelta: zoomDeltaObj.latitudeDelta * 1.5, longitudeDelta: zoomDeltaObj.longitudeDelta * 1.5 })
+    setStationRegionObj({ ...stationRegionObj, latitudeDelta: stationRegionObj.latitudeDelta * 1.5, longitudeDelta: stationRegionObj.longitudeDelta * 1.5 })
   }
 
   const getClickedCoords = (event: MapEvent<{}>) => { 
@@ -188,6 +198,7 @@ export const TabMetroExitsScreen = () => {
             lineDashPattern={[0]}  //<-- solidline
             strokeWidth={1} 
             strokeColor={'black'}
+            resetOnChange={false}
           />
           {
             stationRegionObj && 
@@ -246,6 +257,26 @@ export const TabMetroExitsScreen = () => {
           : <></>
         }
       </SafeAreaView>
+      <View style={{opacity: 0.5, backgroundColor: 'grey', flexDirection: 'row', justifyContent: 'space-evenly', marginLeft: '90%', marginTop: 530, position: 'absolute'}}>
+        <Pressable onPress={() => mapZoomIn()}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+
+          })}>
+          <FontAwesome name="plus" size={25} color='black' style={{ marginRight: 0}}
+          />
+        </Pressable>
+      </View>
+      <View style={{opacity: 0.5, backgroundColor: 'grey', flexDirection: 'row', justifyContent: 'space-evenly', marginLeft: '90%', marginTop: 560, position: 'absolute'}}>
+        <Pressable onPress={() => mapZoomOut()}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+
+          })}>
+          <FontAwesome name="minus" size={25} color='black' style={{ marginRight: 0}}
+          />
+        </Pressable>
+      </View>       
     </>
   )
 }
