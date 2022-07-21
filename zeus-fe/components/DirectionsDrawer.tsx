@@ -68,13 +68,15 @@ export const DirectionsDrawer = (props: {title: string, data: DirectionData | un
               props.data?.directionSteps?.map((step: DirectionStep, index: number) => {
                 let replacedHtmlInstructions = step.html_instructions.replaceAll('<b>', '')
                 replacedHtmlInstructions = replacedHtmlInstructions.replaceAll('</b>', '')
+                replacedHtmlInstructions = replacedHtmlInstructions.replaceAll('<div style=\"font-size:0.9em\">', ' ')
+                replacedHtmlInstructions = replacedHtmlInstructions.replaceAll('</div>', '')
                 replacedHtmlInstructions = replacedHtmlInstructions.replace(/\n/g, "")               
                 //console.log(`replacedHtmlInstructions is: ${replacedHtmlInstructions}`)
                 if (index === 0) {
                   return (
                     <View key={index} style={[styles.flexDirectionRow, {marginBottom: 4}]} >
                       <MaterialCommunityIcons name="arrow-up-thin" color={'#4f4d4d'} size={30} />  
-                      <View style={[styles.flexDirectionColumn, {}]}>
+                      <View style={[styles.flexDirectionColumn, {width: '90%'}]}>
                         <Text style={[styles.listItemTxt, {}]} >Step: {index +1} - Distance: {step.distance.text},</Text> 
                         <Text style={[styles.listItemTxt, {marginLeft: -4}]} > {replacedHtmlInstructions},</Text>
                       </View>                     
@@ -83,14 +85,14 @@ export const DirectionsDrawer = (props: {title: string, data: DirectionData | un
                 }
                 else
                 return (
-                  <View key={index} style={[styles.flexDirectionRow, {marginBottom: 4}]} >
+                  <View key={index} style={[styles.flexDirectionRow, {marginBottom: 4,  }]} >
                     {
                       index % 2 ?
                         <MaterialCommunityIcons name="arrow-right-thin" color={'#4f4d4d'} size={30} />
                       : 
                         <MaterialCommunityIcons name="arrow-left-thin" color={'#4f4d4d'} size={30} />
                     }
-                    <View style={styles.flexDirectionColumn}>
+                    <View style={[styles.flexDirectionColumn, {width: '90%'}]}>
                       <Text style={[styles.listItemTxt, {}]} >Step: {index +1} - Distance: {step.distance.text},</Text> 
                       <Text style={[styles.listItemTxt, {marginLeft: -4}]} > {replacedHtmlInstructions},</Text>
                     </View>                     

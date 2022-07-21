@@ -8,6 +8,7 @@ export const getDestinationCoords = async (destination: string): Promise<Coords>
     console.log(`destination in getDestinationCoords is: ${destination}`)
   
     const url = `${GOOGLE_API_BASE_URL}origin=59.33544098561029,18.06375299406966&destination=${destination}&mode=${travelModes[1].name}&avoid=${avoidString}&key=${GOOGLE_API_KEY}`
+    console.log(`url is: ${url}`)
     const response = await fetch(url)
     .then(response => response.json())
     .then(responseJson => {
@@ -22,6 +23,8 @@ export const getDestinationCoords = async (destination: string): Promise<Coords>
     })
 
     console.log(`getDestinationCoords response is: ${JSON.stringify(response)}`)
+    console.log(``)
+    console.log(``)
     return response
   }
 
@@ -88,7 +91,7 @@ export const getDestinationCoords = async (destination: string): Promise<Coords>
       }
     })
 
-    console.log(`getDestinationCoords response is: ${JSON.stringify(response)}`)
+    console.log(`getDirectionSteps response is: ${JSON.stringify(response)}`)
     return response
   }  
 
