@@ -7,14 +7,13 @@ Team Stockholm Internal Project
 ```
 
 ## To run zeus-fe on a mac
-## Install xcode
+#### # Install xcode
 
 #### # cd Zeus
 #### # cd zeus-fe
 #### # vi .env 
-GOOGLE_API_KEY=<Google API key>
-GOOGLE_API_BASE_URL=https://maps.googleapis.com/maps/api/directions/json?
-```
+#### GOOGLE_API_KEY=<GOOGLE_API_KEY>
+#### GOOGLE_API_BASE_URL=https://maps.googleapis.com/maps/api/directions/json?
 #### # npm install --global expo-cli
 
 #### # npm install
@@ -22,7 +21,3 @@ GOOGLE_API_BASE_URL=https://maps.googleapis.com/maps/api/directions/json?
 #### # expo start
 
 #### # press "i"
-
-```
-
-```
