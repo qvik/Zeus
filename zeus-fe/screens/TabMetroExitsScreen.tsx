@@ -14,7 +14,9 @@ import Logo from '../screens/images/logo.svg'
 import { FontAwesome } from "@expo/vector-icons";
 import { avoids, initialStationRegion, initialMetroExitRegion, metroExits, stations, travelModes, initialZoomInZoomOutDelta } from '../utils/MetroData'
 import { InitialStationData, InitialMetroExitData, DirectionStep, MetroExit, Station, Coords, ZoomInZoomOutDelta, DirectionData } from '../types/ObjectTypes'
-import { getDestinationCoords, calculateDistanceAtoB, getDirectionSteps } from './TabMetroExitUtils/utils'
+import { getClosestStationFromLocationX, getClosestStationExitFromDestinationX, getDestinationCoords, calculateDistanceAtoB, getDirectionSteps } from './TabMetroExitUtils/utils'
+import { LocationObject } from "expo-location";
+import * as Location from 'expo-location';
 
 export const TabMetroExitsScreen = () => {
 
@@ -34,9 +36,14 @@ export const TabMetroExitsScreen = () => {
   const [exitsForSelectedStation, setExitsForSelectedStation] = useState<MetroExit[]>()
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
+  const [location, setLocation] = useState<LocationObject>({ coords: { 
+    latitude: 59.336571, longitude: 18.062832, altitude: 0, accuracy: 0, altitudeAccuracy: 0, heading: 0, speed: 0 }, 
+    timestamp: 0, 
+    mocked: false }); 
+
   const searchHistory = useAppSelector(previousSearches)
   const dispatch = useAppDispatch()
-
+  
   useEffect(() => {
     console.log(`useEffect previousSearches is: {${searchHistory}}`)
     if (!selectedDestination) {
@@ -49,6 +56,47 @@ export const TabMetroExitsScreen = () => {
     console.log(`destination is: {${JSON.stringify(destinationCoords)}}`)
   }, [startLocation, destinationCoords])
 
+  useEffect(() => {
+    
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        alert('Permission to access location was denied')
+        return;
+      }
+      
+      await Location.getCurrentPositionAsync({})
+      .then(location => {
+        //setLocation(location)  //location is where device is. If use simulator then its a random place in the world so we mock it during dev.
+        //Mocked location to be closer to stockholm somewhere (now sergelstorg)
+        //this is so we can test this from anywhere instead of getting the device location
+        setLocation({"coords":{"altitude":0,"altitudeAccuracy":-1,"latitude":59.3323126,"accuracy":5,"longitude":18.0632798,"heading":-1,"speed":-1},"timestamp":1656408123228.5981})
+      })
+      .catch(error => {
+        console.log(`getCurrentPositionAsync error is: ${error}`)
+      })
+      //get device location's closest station
+      const destinationCoords: Coords = {latitude: location.coords.latitude, longitude: location.coords.longitude}
+      const closestStationToDevice: Station = await getClosestStationFromLocationX(location.coords.latitude, location.coords.longitude)
+      console.log(`useEffect getDevicePosition: closestStationToDevice in useEffect is : ${JSON.stringify(closestStationToDevice)}`)
+      
+      const tmpMetroExitList: MetroExit[] = metroExits.filter((it) => it.stationId === closestStationToDevice.id)
+
+      //get device location's closest station -> closest exit
+      const closestStationExitToDevice: MetroExit = await getClosestStationExitFromDestinationX(destinationCoords.latitude, destinationCoords.longitude, tmpMetroExitList)
+      console.log(`useEffect getDevicePosition: closest exit to device coords: ${JSON.stringify(destinationCoords)} 
+      is: ${closestStationExitToDevice.name} with coords: ${closestStationExitToDevice.latitude}, ${closestStationExitToDevice.longitude}
+      at station: ${closestStationToDevice.name} with coords: ${closestStationToDevice.latitude}, ${closestStationToDevice.longitude} 
+      `)
+  
+      //get directions data for closest station's closest exit -> device position
+      const directionsData = await getDirectionSteps({latitude: closestStationExitToDevice.latitude,
+      longitude: closestStationExitToDevice.longitude}, {latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
+      console.log(`useEffect getDevicePosition: directionsData in useEffect is : ${JSON.stringify(directionsData)}`)
+
+    })()
+  }, [])
+
   const handleSelectedStation = (pickedStation: string) => {
     setSelectedStation(pickedStation)
     const tmp: Station = stations.filter((it) => it.name.toLowerCase() === pickedStation.toLocaleLowerCase())[0]
@@ -58,77 +106,51 @@ export const TabMetroExitsScreen = () => {
 
   const handleSubmit = async () => {
     setDrawerIsOpen(false)
+    //Get coords for the destination
     const destinationCoords = await getDestinationCoords(selectedDestination)
     console.log(`handleSubmit destinationCoords is: ${JSON.stringify(destinationCoords)}`)
     setDestinationCoords(destinationCoords)
 
-    let tmpDistance: number = 13600000
-    let resultDistance: number = 13600000
-    let tmpStationId: number
-    let closestStationData: Station
-    let tmpMetroExitList: MetroExit[]
-
     //get closest station to destination
-    stationsList.forEach((station, index) => {
-        tmpDistance = calculateDistanceAtoB(station.latitude, station.longitude, destinationCoords.latitude, destinationCoords.longitude);
-        console.log(`tmpDistance is : ${tmpDistance} meters for station: ${station.name}`)
-        if (tmpDistance < resultDistance) {
-          resultDistance = tmpDistance;
-          //get station Id for the current closest station to destination
-          tmpStationId = station.id
-        }
-    })
-    closestStationData = stations.filter((it) => it.id === tmpStationId)[0]
-    console.log(`closest station to destination: ${selectedDestination}, with coords: ${JSON.stringify(destinationCoords)} is: ${closestStationData.name} with coords: ${closestStationData.latitude}, ${closestStationData.longitude} and distance: ${resultDistance} meters`)
-    //find all exits for current closest station
-    tmpMetroExitList = metroExits.filter((it) => it.stationId === tmpStationId)
+    const closestStationToDestination = await getClosestStationFromLocationX(destinationCoords.latitude, destinationCoords.longitude)
+    console.log(`handleSubmit closest station to destination: ${selectedDestination}, with coords: ${JSON.stringify(destinationCoords)} is: ${closestStationToDestination.name} with coords: ${closestStationToDestination.latitude}, ${closestStationToDestination.longitude} `)
    
     //set StationRegion data which is for current closest station used by initial map view and station marker view
-    setStationRegionObj({ latitude: closestStationData.latitude, longitude: closestStationData.longitude, latitudeDelta: zoomDeltaObj.latitudeDelta, longitudeDelta: zoomDeltaObj.longitudeDelta, stationData: closestStationData })
+    //setStationRegionObj({ latitude: closestStationData.latitude, longitude: closestStationData.longitude, latitudeDelta: zoomDeltaObj.latitudeDelta, longitudeDelta: zoomDeltaObj.longitudeDelta, stationData: closestStationData })
+    setStationRegionObj({ latitude: closestStationToDestination.latitude, longitude: closestStationToDestination.longitude, latitudeDelta: zoomDeltaObj.latitudeDelta, longitudeDelta: zoomDeltaObj.longitudeDelta, stationData: closestStationToDestination })
     
+    //find all exits for the closest station to the destination
+    const tmpMetroExitList: MetroExit[] = metroExits.filter((it) => it.stationId === closestStationToDestination.id)
+  
     //get closet exit to destination
-    let exitTmpDistance: number = 13600000
-    let exitResultDistance: number = 13600000
-    let tmpExitId: number
-    let closestExitData: MetroExit
-
-    tmpMetroExitList.forEach((exit, index) => {
-      exitTmpDistance = calculateDistanceAtoB(exit.latitude, exit.longitude, destinationCoords.latitude, destinationCoords.longitude);
-      console.log(`exitTmpDistance is : ${exitTmpDistance} meters for Exit: ${exit.name} at station: ${closestStationData.name}`)
-      if (exitTmpDistance < exitResultDistance) {
-        exitResultDistance = exitTmpDistance
-        //get exit Id for the current closest exit to destination
-        tmpExitId = exit.id
-      }
-    })
-    closestExitData = metroExits.filter((it) => it.id === tmpExitId)[0]
+    const closestStationExitToDestination: MetroExit = await getClosestStationExitFromDestinationX(destinationCoords.latitude, destinationCoords.longitude, tmpMetroExitList)
     console.log(`closest exit to destination: ${selectedDestination}, with coords: ${JSON.stringify(destinationCoords)} 
-    from station: ${closestStationData.name} with coords: ${closestStationData.latitude}, ${closestStationData.longitude} 
-    is: ${closestExitData.name} with coords: ${closestExitData.latitude}, ${closestExitData.longitude} with distance: ${exitResultDistance} meters`)
+    from station: ${closestStationToDestination.name} with coords: ${closestStationToDestination.latitude}, ${closestStationToDestination.longitude} 
+    is: ${closestStationExitToDestination.name} with coords: ${closestStationExitToDestination.latitude}, ${closestStationExitToDestination.longitude}`)
+
     //set setPreferredMetroExitRegionObj data which is for current closest exit for map view and preferred exit marker view
-    setPreferredMetroExitRegionObj({ latitude: closestExitData.latitude, longitude: closestExitData.longitude, latitudeDelta: zoomDeltaObj.latitudeDelta, longitudeDelta: zoomDeltaObj.longitudeDelta, metroExitData: closestExitData })
+    setPreferredMetroExitRegionObj({ latitude: closestStationExitToDestination.latitude, longitude: closestStationExitToDestination.longitude, latitudeDelta: zoomDeltaObj.latitudeDelta, longitudeDelta: zoomDeltaObj.longitudeDelta, metroExitData: closestStationExitToDestination })
     
     //We will color the marker for closest station black and closest exit red and the rest golden, so we need 3 region objects
     //We need to remove the closest exit from the list of exits for the closest station
-    setExitsForSelectedStation(tmpMetroExitList.filter((it) => it.id !== closestExitData.id))
+    setExitsForSelectedStation(tmpMetroExitList.filter((it) => it.id !== closestStationExitToDestination.id))
 
     //set below for the MapViewDirections
-    setStartLocation({...startLocation, latitude: closestExitData.latitude,longitude: closestExitData.longitude})
+    setStartLocation({...startLocation, latitude: closestStationExitToDestination.latitude,longitude: closestStationExitToDestination.longitude})
     setDestinationCoords({...destinationCoords, latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
 
-    //set the directions data
-    const directionsData = await getDirectionSteps({latitude: closestExitData.latitude,
-      longitude: closestExitData.longitude}, {latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
+    //get directions data for closest station -> closest exit to destination
+    const directionsData = await getDirectionSteps({latitude: closestStationExitToDestination.latitude,
+      longitude: closestStationExitToDestination.longitude}, {latitude: destinationCoords.latitude,longitude: destinationCoords.longitude})
     //console.log(`handleSubmit directionStepsData is: ${JSON.stringify(directionsData)}`)
     
-    dispatch(updateDirectionData(directionsData)) //not used now.
+    dispatch(updateDirectionData(directionsData)) //used in modal but not used now.
     setDirections(directionsData) //used in drawer to display directions
     setDrawerIsOpen(true)
 
     //save search to history
     dispatch(addLocation(selectedDestination))
     setHidePreviousDestinations(true)
-
   }
   const mapZoomIn = () => {
     console.log(`mapZoomIn`)

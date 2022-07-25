@@ -1,8 +1,51 @@
 import { GOOGLE_API_BASE_URL, GOOGLE_API_KEY } from '@env'
-import { Coords, DirectionData } from '../../types/ObjectTypes'
+import { Coords, DirectionData, Station, MetroExit } from '../../types/ObjectTypes'
 import { travelModes, avoids } from '../../utils/MetroData'
+import { stations } from '../../utils/MetroData'
 
 const avoidString = avoids[0].name + '|' + avoids[1].name + '|' + avoids[2].name
+
+//latitude, longitude is the location from where one wants to find the closest station
+export const getClosestStationFromLocationX = async (latitude: number, longitude: number ): Promise<Station> => {
+  let tmpDistance: number = 13600000
+  let resultDistance: number = 13600000
+  let closestStationData: Station
+
+  return new Promise((resolve, reject) => {
+    stations.forEach(async (station: Station) => {
+      tmpDistance = calculateDistanceAtoB(station.latitude, station.longitude, latitude, longitude);
+      console.log(`current station is: ${station.name}, with coords: ${JSON.stringify(station.latitude)}, ${JSON.stringify(station.longitude)} 
+      have a distance of: ${tmpDistance} meters to current device Location: ${latitude}, ${longitude}`)
+      if (tmpDistance < resultDistance) {
+        resultDistance = tmpDistance
+        closestStationData = station
+      }
+    })
+    console.log(`closestStationData in getClosestStationFromLocationX to be returned is : ${JSON.stringify(closestStationData)}`)
+    resolve(closestStationData)
+  })
+}
+
+//latitude, longitude is the location from where one wants to find the calculated "closest station" exit
+export const getClosestStationExitFromDestinationX = async (latitude: number, longitude: number, exitsList: MetroExit[]): Promise<MetroExit> => {
+  let tmpDistance: number = 13600000
+  let resultDistance: number = 13600000
+  let closestExitData: MetroExit
+
+  return new Promise((resolve, reject) => {
+    exitsList.forEach(async (exit: MetroExit) => {
+      tmpDistance = calculateDistanceAtoB(exit.latitude, exit.longitude, latitude, longitude);
+      console.log(`current exit is: ${exit.name}, with coords: ${JSON.stringify(exit.latitude)}, ${JSON.stringify(exit.longitude)} 
+      have a distance of: ${tmpDistance} meters to current destination: ${latitude}, ${longitude}`)
+      if (tmpDistance < resultDistance) {
+        resultDistance = tmpDistance
+        closestExitData = exit
+      }
+    })
+    console.log(`closestexitData in getClosestexitFromLocationX to be returned is : ${JSON.stringify(closestExitData)}`)
+    resolve(closestExitData)
+  })
+}
 
 export const getDestinationCoords = async (destination: string): Promise<Coords> => {
     console.log(`destination in getDestinationCoords is: ${destination}`)
@@ -29,8 +72,25 @@ export const getDestinationCoords = async (destination: string): Promise<Coords>
   }
 
   export const getDirectionSteps = async (startLocation: Coords, destination: Coords): Promise<DirectionData> => {
-    
 
+    const defaultReturnObj = {
+      'startLocation': '',
+      'endLocation': '',
+      'startLocationCoords': {lat: 0, lng: 0},
+      'endLocationCoords': {lat: 0, lng: 0},
+      'duration': {text: '', value: 0},
+      'directionSteps': [ 
+        {
+          'distance': {text: '', value: ''}, 
+          'duration': {text: '', value: 0},
+          'start_location': {lat: 0, lng: 0},
+          'end_location': {lat: 0, lng: 0},
+          'html_instructions': '',
+          'travel_mode': '' 
+        }
+      ],
+      'preferredExit': ''
+    }
     const url = `${GOOGLE_API_BASE_URL}origin=${startLocation.latitude},${startLocation.longitude}&destination=${destination.latitude},${destination.longitude}&mode=${travelModes[1].name}&avoid=${avoidString}&key=${GOOGLE_API_KEY}`
     
     const response = await fetch(url)
@@ -50,48 +110,17 @@ export const getDestinationCoords = async (destination: string): Promise<Coords>
         }
       }
       else 
-        return {
-          'startLocation': '',
-          'endLocation': '',
-          'startLocationCoords': {lat: 0, lng: 0},
-          'endLocationCoords': {lat: 0, lng: 0},
-          'duration': {text: '', value: 0},
-          'directionSteps': [ 
-            {
-              'distance': {text: '', value: ''}, 
-              'duration': {text: '', value: 0},
-              'start_location': {lat: 0, lng: 0},
-              'end_location': {lat: 0, lng: 0},
-              'html_instructions': '',
-              'travel_mode': '' 
-            }
-          ],
-          'preferredExit': ''
-        }
+        return defaultReturnObj
     })
     .catch(error => {
       console.log(`getDestinationCoords error is: ${error}`)
-      return {
-        'startLocation': '',
-        'endLocation': '',
-        'startLocationCoords': {lat: 0, lng: 0},
-        'endLocationCoords': {lat: 0, lng: 0},
-        'duration': {text: '', value: 0},
-        'directionSteps': [ 
-          {
-            'distance': {text: '', value: ''}, 
-            'duration': {text: '', value: 0},
-            'start_location': {lat: 0, lng: 0},
-            'end_location': {lat: 0, lng: 0},
-            'html_instructions': '',
-            'travel_mode': '' 
-          }
-        ],
-        'preferredExit': ''
-      }
+      return defaultReturnObj
     })
 
     console.log(`getDirectionSteps response is: ${JSON.stringify(response)}`)
+    console.log(``)
+    console.log(``)
+
     return response
   }  
 
